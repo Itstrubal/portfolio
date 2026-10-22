@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Ads Variation Pipeline — Ela Rosen</title>
+  <meta name="description" content="Scaling creatives with AI for GLOW, an RPG fashion game: 50 ads per week for winning ads or A/B testing, built on ComfyUI workflows and Seedance video generation.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Video Ads Variation Pipeline — Ela Rosen">
+  <meta property="og:description" content="Scaling creatives with AI: 50 ads per week for winning ads or A/B testing.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#2a2524">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="project">
+    <div class="container">
+      <section class="hero">
+        <div>
+          <h1 class="hero-title">Video Ads Variation Pipeline</h1>
+          <p class="hero-client">GLOW (RPG fashion game)</p>
+          <p class="hero-lead">Scaling Creatives With AI</p>
+          <p class="hero-sub">50 ads per week for winning ads or for A/B testing.</p>
+        </div>
+        <div class="media media--hero">
+          <video data-src="../assets/videos-hero.mp4" muted loop playsinline preload="none" aria-label="Generated video ad variation"></video>
+        </div>
+      </section>
+
+      <section class="facts" aria-label="Project details">
+        <div class="fact">
+          <p class="fact-label">Role</p>
+          <div class="fact-value">
+            <strong>Creative AI Specialist &amp; Product Designer</strong>
+            <ul class="fact-list">
+              <li>Architected ComfyUI node workflows</li>
+              <li>Art direction and managed model fine-tuning</li>
+              <li>Designed app frontend with user-friendly UI</li>
+            </ul>
+          </div>
+        </div>
+        <div class="fact">
+          <p class="fact-label">Cross-functional<br>project team</p>
+          <p class="fact-value">UA Lead, UA Motion Designers, Project Manager, DevOps</p>
+        </div>
+        <div class="fact">
+          <p class="fact-label">Target users</p>
+          <p class="fact-value">UA Leads, Creative Leads, UA Motion Designers</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="band">
+      <div class="container">
+        <section class="split">
+          <div class="media tall">
+            <video data-src="../assets/videos-challenge.mp4" muted loop playsinline preload="none" aria-label="Pipeline app walkthrough"></video>
+          </div>
+          <div>
+            <h2 class="section-title">The challenge</h2>
+            <div class="body">
+              <p>Translating complex ComfyUI workflows into intuitive UI for non-technical and creative users</p>
+              <p>Balancing scale, accuracy, and creative control</p>
+              <p>Creating an automation for a highly elaborate video prompting structure</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <h2 class="section-title">System architecture</h2>
+        <div class="facts facts--compact">
+          <div class="fact">
+            <p class="fact-label">Generative AI workflow</p>
+            <p class="fact-value">Designed with ComfyUI</p>
+          </div>
+          <div class="fact">
+            <p class="fact-label">Frontend app</p>
+            <p class="fact-value">Designed and built with Claude Design &amp; Claude Code</p>
+          </div>
+        </div>
+        <div class="figure-wide media">
+          <img src="../assets/videos-architecture.png" alt="System architecture diagram of the video ads pipeline" loading="lazy" width="846" height="540">
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Interaction flow</h2>
+        <ol class="flow">
+          <li>
+            <h3>Curated Input</h3>
+            <p>Image references: generated character and background, clothing references, or generate a new character</p>
+          </li>
+          <li>
+            <h3>Image Generation</h3>
+            <p>A ComfyUI workflow is triggered with engineered prompts. A frame is generated in the structure of a gameplay frame</p>
+          </li>
+          <li>
+            <h3>Items Selection</h3>
+            <p>The user selects which clothing items will be applied; the indexes of the selected items are sent to the video generation ComfyUI workflow</p>
+          </li>
+          <li>
+            <h3>Video Generation</h3>
+            <p>A ComfyUI workflow is triggered. The workflow includes LLMs, a VL model, custom nodes and finally Seedance video generation</p>
+          </li>
+          <li>
+            <h3>Final Video Export</h3>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section split">
+        <div class="media tall">
+          <video data-src="../assets/videos-hitl.mp4" muted loop playsinline preload="none" aria-label="Curated video output"></video>
+        </div>
+        <div>
+          <h2 class="section-title">Human-in-the-loop<br>curating and creative direction</h2>
+          <div class="body">
+            <p>The character, background, outfits and outro are designed by the art team</p>
+            <p>The generated content is cherry-picked</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section split split--reverse">
+        <div class="media tall">
+          <video data-src="../assets/videos-bottlenecks.mp4" muted loop playsinline preload="none" aria-label="Generated video example"></video>
+        </div>
+        <div>
+          <h2 class="section-title">Bottlenecks and limitations</h2>
+          <div class="body">
+            <p>Running multi-model ComfyUI workflows requires high-VRAM GPU cloud infrastructure and a data storage solution</p>
+            <p>The generated content needs to be validated to weed out prompt drifts, glitches and artifacts</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section split">
+        <div class="media tall">
+          <video data-src="../assets/videos-next-steps.mp4" muted loop playsinline preload="none" aria-label="Generated video example"></video>
+        </div>
+        <div>
+          <h2 class="section-title">Next steps</h2>
+          <div class="body">
+            <p>Pushing the content to the asset manager</p>
+            <p>Each variant receives a tracking ID and is monitored for performance</p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="back"><a href="../"><img src="../assets/arrow.svg" alt="">Back to projects</a></nav>
+    </div>
+  </main>
+  <script src="../js/main.js"></script>
+</body>
+</html>

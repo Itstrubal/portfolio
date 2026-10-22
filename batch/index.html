@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batch Image Generation App — Ela Rosen</title>
+  <meta name="description" content="A one-stop batch processing app that generates hundreds of images from a single input while maintaining consistency and brand identity.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Batch Image Generation App — Ela Rosen">
+  <meta property="og:description" content="Generating hundreds of images from a single input while maintaining consistency and brand identity.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#2a2524">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="project">
+    <div class="container">
+      <section class="hero">
+        <div>
+          <h1 class="hero-title">Batch Image Generation App</h1>
+          <p class="hero-lead">Generating hundreds of images from a single input</p>
+          <p class="hero-sub">while maintaining consistency and brand identity</p>
+        </div>
+        <div class="panel-grid">
+          <img src="../assets/batch-grid-1.png" alt="Generated asset example 1" width="207" height="237">
+          <img src="../assets/batch-grid-2.png" alt="Generated asset example 2" width="207" height="237">
+          <img src="../assets/batch-grid-3.png" alt="Generated asset example 3" width="207" height="237">
+          <img src="../assets/batch-grid-4.png" alt="Generated asset example 4" width="207" height="237">
+          <img src="../assets/batch-grid-5.png" alt="Generated asset example 5" width="207" height="237" loading="lazy">
+          <img src="../assets/batch-grid-6.png" alt="Generated asset example 6" width="207" height="237" loading="lazy">
+        </div>
+      </section>
+
+      <section class="facts" aria-label="Project details">
+        <div class="fact">
+          <p class="fact-label">Role</p>
+          <div class="fact-value">
+            <strong>Creative AI Specialist &amp; Product Designer</strong>
+            <ul class="fact-list">
+              <li>Architected ComfyUI node workflows</li>
+              <li>Art direction and managed model fine-tuning</li>
+              <li>Defined UX direction</li>
+            </ul>
+          </div>
+        </div>
+        <div class="fact">
+          <p class="fact-label">Cross-functional<br>project team</p>
+          <p class="fact-value">Game Owner, Art Director, Backend and DevOps Engineers</p>
+        </div>
+        <div class="fact">
+          <p class="fact-label">Target users</p>
+          <p class="fact-value">2D Artists</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="band">
+      <div class="container">
+        <section class="split">
+          <div class="media tall" style="aspect-ratio:486/743">
+            <video data-src="../assets/batch-challenge.mp4" muted loop playsinline preload="none" aria-label="Batch image generation app walkthrough"></video>
+          </div>
+          <div>
+            <h2 class="section-title">The challenge</h2>
+            <div class="body">
+              <p>Designing a “one-stop shop” batch processing app with a single input that automates both prompt and image generation, while keeping results consistent across hundreds of assets and avoiding prompt fatigue</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="figure-wide media" style="aspect-ratio:846/508">
+        <video data-src="../assets/batch-flow.mp4" muted loop playsinline preload="none" aria-label="Interaction flow demo"></video>
+      </div>
+
+      <section class="section">
+        <h2 class="section-title">Interaction flow</h2>
+        <ol class="flow">
+          <li>
+            <h3>Simple Input</h3>
+            <p>Collection name, additional context (optional), style selection with a LoRA, number of assets and background removal</p>
+          </li>
+          <li>
+            <h3>Automated Prompt Expansion and Review</h3>
+            <p>The backend LLM expands a single subject input into a structured batch prompt list in a template fit for batch image generation in ComfyUI</p>
+            <p>The user can change, edit or re-generate the prompts</p>
+          </li>
+          <li>
+            <h3>Batch Image Generation</h3>
+            <p>A ComfyUI workflow is triggered: batch image generation with Flux</p>
+          </li>
+          <li>
+            <h3>Interactive Asset Curation</h3>
+            <p>The generated assets are returned for review in a responsive grid, allowing the user to select specific assets for re-generation</p>
+          </li>
+          <li>
+            <h3>Export and Asset Handoff</h3>
+            <p>Bulk export with control over naming convention, size and dimensions</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section split">
+        <div class="media" style="aspect-ratio:413/431">
+          <img src="../assets/batch-bottlenecks.png" alt="Batch of generated assets" loading="lazy" width="413" height="431">
+        </div>
+        <div>
+          <h2 class="section-title">Bottlenecks and limitations</h2>
+          <div class="body">
+            <p>Running a large batch image generation workflow requires high-VRAM GPU cloud infrastructure with extended server timeout and a data storage solution.</p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="back"><a href="../"><img src="../assets/arrow.svg" alt="">Back to projects</a></nav>
+    </div>
+  </main>
+  <script src="../js/main.js"></script>
+</body>
+</html>

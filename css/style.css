@@ -1,0 +1,472 @@
+/* ==========================================================
+   Ela Rosen — portfolio
+   Rebuilt from the Figma Site (elarosenai.figma.site)
+   ========================================================== */
+
+:root {
+  --bg: #2a2524;
+  --band: rgba(0, 0, 0, 0.2);
+  --text: #ffffff;
+  --text-90: rgba(255, 255, 255, 0.9);
+  --text-85: rgba(255, 255, 255, 0.85);
+  --text-80: rgba(255, 255, 255, 0.8);
+  --text-70: rgba(255, 255, 255, 0.7);
+  --text-40: rgba(255, 255, 255, 0.4);
+  --accent: #c9e882;
+  --panel-peach: rgba(253, 228, 189, 0.46);
+  --frame: rgba(0, 0, 0, 0.2);
+
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1180px;
+  --radius: 16px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Lexend", system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+p { margin: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--max) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Media frame (the 2px dark outline used everywhere) ---------- */
+
+.media {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--frame);
+  pointer-events: none;
+}
+.media img,
+.media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.media--hero { border-radius: 30px; }
+
+/* ==========================================================
+   HOME
+   ========================================================== */
+
+.home {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header {
+  text-align: center;
+  padding: clamp(64px, 10vw, 140px) var(--gutter) 0;
+}
+
+.home-name {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.8;
+  text-transform: uppercase;
+  color: var(--text-80);
+}
+
+.home-title {
+  margin: clamp(24px, 3.5vw, 48px) 0 0;
+  font-weight: 500;
+  font-size: clamp(20px, 3vw, 38px);
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.home-tagline {
+  margin-top: 12px;
+  font-weight: 500;
+  font-size: clamp(16px, 1.7vw, 21px);
+  color: var(--text-80);
+  opacity: 0.95;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 320px));
+  gap: 24px;
+  justify-content: center;
+  margin: clamp(56px, 8vw, 110px) auto 0;
+  padding: 0 var(--gutter);
+}
+
+.project-tile {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 22px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 51px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+.project-tile span { display: block; }
+.project-tile:hover,
+.project-tile:focus-visible {
+  color: var(--accent);
+  background-color: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+
+.home-footer {
+  margin-top: auto;
+  padding: clamp(64px, 10vw, 140px) var(--gutter) 48px;
+}
+
+.contact {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(24px, 3vw, 37px);
+  max-width: var(--max);
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.contact a {
+  line-height: 50px;
+  transition: color 0.2s ease;
+}
+.contact a:hover { color: var(--accent); }
+
+/* ==========================================================
+   PROJECT PAGES
+   ========================================================== */
+
+.project { padding-top: clamp(48px, 8vw, 110px); }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 455px);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+
+.hero-title {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(40px, 5.4vw, 64px);
+  line-height: 1.375;
+}
+
+.hero-client {
+  margin-top: 8px;
+  font-weight: 600;
+  font-size: clamp(16px, 1.8vw, 22px);
+  text-transform: uppercase;
+  color: var(--text-40);
+  letter-spacing: 0.02em;
+}
+
+.hero-lead {
+  margin-top: 28px;
+  font-size: clamp(22px, 2.6vw, 32px);
+  line-height: 1.25;
+  color: var(--text-90);
+}
+
+.hero-sub {
+  margin-top: 12px;
+  font-weight: 500;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.5;
+  color: var(--text-80);
+}
+
+.hero .media { aspect-ratio: 455 / 809; }
+.hero .media--wide { aspect-ratio: 493 / 809; }
+
+/* Batch page: 2x3 image grid on a peach panel */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: var(--panel-peach);
+  box-shadow: 0 0 0 2px var(--frame);
+}
+.panel-grid img {
+  width: 100%;
+  aspect-ratio: 207 / 237;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* ---------- Facts (Role / Team / Users) ---------- */
+
+.facts {
+  margin: clamp(72px, 10vw, 140px) 0 clamp(72px, 10vw, 140px);
+  padding: 0 21px;
+}
+.fact {
+  display: grid;
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  gap: 16px;
+}
+.fact + .fact { margin-top: 80px; }
+
+.fact-label {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  text-transform: uppercase;
+  color: var(--text-80);
+}
+
+.fact-value {
+  font-size: 25px;
+  line-height: 32px;
+}
+.fact-value strong { font-weight: 500; }
+
+.fact-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+.fact-list li {
+  position: relative;
+  padding-left: 30px;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 32px;
+}
+.fact-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 15px;
+  height: 7px;
+  background: url("../assets/arrow.svg") no-repeat center / contain;
+  opacity: 0.85;
+}
+
+.facts--compact { margin: 24px 0 0; padding: 0; }
+.facts--compact .fact { grid-template-columns: minmax(0, 480px) minmax(0, 1fr); }
+.facts--compact .fact + .fact { margin-top: 24px; }
+.facts--compact .fact-label { line-height: 40px; color: var(--text-70); }
+.facts--compact .fact-value { font-size: clamp(19px, 2vw, 24px); line-height: 40px; }
+
+/* ---------- Sections ---------- */
+
+.band {
+  background: var(--band);
+  padding: 32px 0;
+}
+
+.section { margin: clamp(80px, 10vw, 140px) 0; }
+.band .section { margin: 0; }
+.band + .section { margin-top: clamp(80px, 10vw, 140px); }
+
+.section-title {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(24px, 2.6vw, 30px);
+  line-height: 40px;
+  text-transform: uppercase;
+}
+.section-title--sub {
+  font-weight: 500;
+}
+
+.body {
+  margin-top: 24px;
+  font-size: clamp(19px, 2vw, 25px);
+  line-height: 1.6;
+  color: var(--text-85);
+}
+.body p + p { margin-top: 40px; }
+
+/* split: media + text side by side */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 418px) minmax(0, 1fr);
+  gap: clamp(32px, 9vw, 130px);
+  align-items: start;
+}
+.split--reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 413px); }
+.split--reverse > .media { order: 2; }
+.split .media.tall { aspect-ratio: 418 / 743; }
+.split--square { grid-template-columns: minmax(0, 480px) minmax(0, 1fr); gap: clamp(32px, 9vw, 120px); }
+.split--square .media { aspect-ratio: 1; }
+.split--hitl { grid-template-columns: minmax(0, 373px) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); }
+.split--hitl .media { aspect-ratio: 373 / 526; }
+
+/* label | text, used on reskin/loras */
+.split-text {
+  display: grid;
+  grid-template-columns: minmax(0, 422px) minmax(0, 1fr);
+  gap: 16px;
+  padding: 32px 0;
+}
+.split-text .body { margin-top: 0; }
+
+/* wide centered figure */
+.figure-wide {
+  max-width: 850px;
+  margin: clamp(56px, 7vw, 80px) auto 0;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 544fr 402fr;
+  gap: clamp(20px, 7vw, 84px);
+  max-width: 1030px;
+  margin: 24px auto 0;
+}
+.pair .media { aspect-ratio: auto; height: clamp(200px, 30vw, 350px); }
+
+/* ---------- Interaction flow ---------- */
+
+.flow {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  max-width: 1040px;
+}
+.flow li + li { margin-top: 61px; }
+.flow h3 {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(21px, 2.2vw, 26px);
+  line-height: 48px;
+}
+.flow p {
+  font-size: clamp(17px, 1.7vw, 20px);
+  line-height: 40px;
+}
+
+/* ---------- Back link ---------- */
+
+.back {
+  display: flex;
+  justify-content: flex-end;
+  padding: clamp(80px, 10vw, 140px) 0 clamp(64px, 8vw, 110px);
+}
+.back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 40px;
+  text-transform: uppercase;
+  color: var(--text-90);
+  transition: color 0.2s ease;
+}
+.back a img {
+  width: 36px;
+  height: 15px;
+  transform: scaleX(-1);
+  transition: transform 0.25s ease;
+}
+.back a:hover { color: var(--accent); }
+.back a:hover img { transform: scaleX(-1) translateX(4px); }
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 900px) {
+  .hero,
+  .split,
+  .split--reverse,
+  .split-text,
+  .fact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .split--reverse > .media { order: 0; }
+  .facts--compact .fact { grid-template-columns: minmax(0, 1fr); gap: 0; }
+
+  .hero .media,
+  .hero .panel-grid,
+  .split .media {
+    max-width: 440px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .facts { padding: 0; }
+  .fact { gap: 10px; }
+  .fact + .fact { margin-top: 44px; }
+  .fact-value { font-size: 21px; }
+
+  .flow li + li { margin-top: 36px; }
+  .flow p { line-height: 1.7; }
+  .body p + p { margin-top: 24px; }
+
+  .pair { grid-template-columns: 1fr; }
+  .pair .media { height: auto; aspect-ratio: 4 / 3; }
+
+  .back { justify-content: center; }
+}
+
+@media (max-width: 560px) {
+  .projects {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 360px;
+    gap: 8px;
+  }
+  .project-tile {
+    aspect-ratio: auto;
+    padding: 28px 16px;
+    line-height: 1.6;
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+  .contact { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}

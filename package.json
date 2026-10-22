@@ -1,0 +1,10 @@
+{
+  "name": "ela-rosen-portfolio",
+  "private": true,
+  "description": "Ela Rosen — Creative AI Specialist portfolio",
+  "scripts": {
+    "assets": "node scripts/download-assets.mjs",
+    "compress": "bash scripts/compress-videos.sh",
+    "dev": "npx --yes serve ."
+  }
+}
