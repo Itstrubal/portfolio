@@ -15,8 +15,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
-<body>
+<body id="top">
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-logo" href="#top">Ela Rosen</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <span class="scroll-progress" aria-hidden="true"></span>
+  </header>
+
   <div class="home">
     <header class="home-header">
       <h1 class="home-name">Ela Rosen</h1>
@@ -25,7 +37,7 @@
     </header>
 
     <main>
-      <nav class="projects" aria-label="Projects">
+      <nav class="projects" id="projects" aria-label="Projects">
         <a class="project-tile" href="videos/"><span>Video ads variations</span></a>
         <a class="project-tile" href="batch/"><span>Batch image gen</span></a>
         <a class="project-tile" href="reskin/"><span>Character<br>re-skin</span></a>
@@ -33,13 +45,20 @@
       </nav>
     </main>
 
-    <footer class="home-footer">
-      <nav class="contact" aria-label="Contact">
-        <a href="https://www.linkedin.com/in/ela-rosen/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:elarosen29@gmail.com">Email</a>
-        <a href="https://drive.google.com/file/d/1_AGuSereSzC7OoEoJAeXVAEpSn-D00lD/view?usp=sharing" target="_blank" rel="noopener">CV</a>
-      </nav>
+    <footer class="site-footer" id="contact">
+      <div class="container site-footer-inner">
+        <div>
+          <p class="site-footer-title">Get in touch</p>
+          <p class="site-footer-meta">Ela Rosen · Creative AI Specialist</p>
+        </div>
+        <nav class="contact" aria-label="Contact">
+          <a href="https://www.linkedin.com/in/ela-rosen/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:elarosen29@gmail.com">Email</a>
+          <a href="https://drive.google.com/file/d/1_AGuSereSzC7OoEoJAeXVAEpSn-D00lD/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+        </nav>
+      </div>
     </footer>
   </div>
+  <script src="js/main.js"></script>
 </body>
 </html>

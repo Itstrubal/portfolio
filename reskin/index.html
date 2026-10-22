@@ -15,8 +15,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-logo" href="../">Ela Rosen</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="../#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <span class="scroll-progress" aria-hidden="true"></span>
+  </header>
+
   <main class="project">
     <div class="container">
       <section class="hero">
@@ -86,5 +98,20 @@
       <nav class="back"><a href="../"><img src="../assets/arrow.svg" alt="">Back to projects</a></nav>
     </div>
   </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="container site-footer-inner">
+      <div>
+        <p class="site-footer-title">Get in touch</p>
+        <p class="site-footer-meta">Ela Rosen · Creative AI Specialist</p>
+      </div>
+      <nav class="contact" aria-label="Contact">
+        <a href="https://www.linkedin.com/in/ela-rosen/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:elarosen29@gmail.com">Email</a>
+        <a href="https://drive.google.com/file/d/1_AGuSereSzC7OoEoJAeXVAEpSn-D00lD/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
 </body>
 </html>
