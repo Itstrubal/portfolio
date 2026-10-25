@@ -687,22 +687,38 @@ body { overflow-x: clip; }
 }
 
 @media (max-width: 560px) {
+  /* Phones have no hover, so each project becomes an image card:
+     preview on top, title + arrow in a bar underneath. */
   .projects {
     grid-template-columns: minmax(0, 1fr);
     max-width: 360px;
-    gap: 8px;
+    gap: 16px;
   }
   .project-tile {
     aspect-ratio: auto;
-    padding: 28px 54px; /* room for the arrow on the right, kept symmetric */
-    line-height: 1.6;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    text-align: left;
+    line-height: 1.4;
   }
+  .project-tile-preview {
+    position: static;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    opacity: 1;
+    transform: none;
+  }
+  .project-tile span { padding: 16px 60px 16px 18px; }
+  .project-tile span br { display: none; }
+  .project-tile:hover span,
+  .project-tile:focus-visible span { opacity: 1; }
   .project-tile::after {
-    top: 50%;
-    bottom: auto;
     right: 18px;
-    margin-top: -7px;
+    bottom: 19px;
     width: 28px;
+    height: 12px;
+    opacity: 0.6;
   }
   :root { --header-h: 60px; }
   .site-logo { font-size: 17px; }
