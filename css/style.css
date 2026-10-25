@@ -15,6 +15,7 @@
   --accent: #c9e882;
   --panel-peach: rgba(253, 228, 189, 0.46);
   --frame: rgba(0, 0, 0, 0.2);
+  --tile: rgba(0, 0, 0, 0.22);
 
   --gutter: clamp(20px, 4vw, 56px);
   --max: 1180px;
@@ -270,18 +271,46 @@ p { margin: 0; }
   text-align: center;
   padding: 22px;
   border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--tile);
   font-weight: 700;
   font-size: 16px;
   line-height: 51px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.35s var(--ease);
+  transition: transform 0.35s var(--ease);
 }
-.project-tile span { display: block; }
-/* Arrow that slides in on hover, tinted with the tile's text color */
+.project-tile span {
+  position: relative;
+  z-index: 2;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+/* Preview image, revealed on hover in place of the title */
+.project-tile-preview {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.45s ease, transform 0.8s var(--ease);
+}
+.project-tile:hover .project-tile-preview,
+.project-tile:focus-visible .project-tile-preview {
+  opacity: 1;
+  transform: none;
+}
+.project-tile:hover span,
+.project-tile:focus-visible span { opacity: 0; }
+/* Arrow, shown faintly on touch screens (see the hover: none rule below) */
 .project-tile::after {
   content: "";
   position: absolute;
+  z-index: 2;
   right: 24px;
   bottom: 24px;
   width: 36px;
@@ -290,21 +319,9 @@ p { margin: 0; }
   -webkit-mask: url("../assets/arrow.svg") no-repeat center / contain;
   mask: url("../assets/arrow.svg") no-repeat center / contain;
   opacity: 0;
-  transform: translateX(-10px);
-  transition: opacity 0.3s ease, transform 0.35s var(--ease);
 }
 .project-tile:hover,
-.project-tile:focus-visible {
-  color: var(--accent);
-  background-color: rgba(255, 255, 255, 0.04);
-  box-shadow: inset 0 0 0 1px rgba(201, 232, 130, 0.25);
-  transform: translateY(-4px);
-}
-.project-tile:hover::after,
-.project-tile:focus-visible::after {
-  opacity: 1;
-  transform: none;
-}
+.project-tile:focus-visible { transform: translateY(-4px); }
 .project-tile:active { transform: translateY(-1px) scale(0.99); }
 
 .home .site-footer { margin-top: clamp(64px, 10vw, 140px); }
@@ -536,32 +553,80 @@ p { margin: 0; }
   line-height: 40px;
 }
 
-/* ---------- Back link ---------- */
+/* ---------- Next project link ---------- */
 
-.back {
+.next {
   display: flex;
   justify-content: flex-end;
   padding: clamp(80px, 10vw, 140px) 0 clamp(64px, 8vw, 110px);
 }
-.back a {
+.next-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  text-align: right;
+}
+.next-label {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: clamp(12px, 1.2vw, 16px);
   font-weight: 500;
-  font-size: 20px;
-  line-height: 40px;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.1;
   text-transform: uppercase;
   color: var(--text-90);
   transition: color 0.2s ease;
 }
-.back a img {
-  width: 36px;
-  height: 15px;
-  transform: scaleX(-1);
-  transition: transform 0.25s ease;
+.next-label img {
+  flex: none;
+  width: clamp(26px, 2.2vw, 32px);
+  height: auto;
+  transition: transform 0.35s var(--ease);
 }
-.back a:hover { color: var(--accent); }
-.back a:hover img { transform: scaleX(-1) translateX(4px); }
+.next-title {
+  font-weight: 500;
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--text-40);
+  transition: color 0.2s ease;
+}
+.next-link:hover .next-label { color: var(--accent); }
+.next-link:hover .next-label img { transform: translateX(10px); }
+.next-link:hover .next-title { color: var(--text-70); }
+
+/* ---------- Page transitions between projects ----------
+   main.js animates the page out and remembers the direction; the next page's
+   head script adds .enter-*, so it animates in to match.
+   forward: slide left, like moving along a row.
+   wrap (last project back to the first): a "rewind" — the page shrinks back and
+   whooshes off to the right with motion blur, and the first project comes in
+   from the left, blurred, then settles into focus. */
+
+body { overflow-x: clip; }
+
+@keyframes slide-out { to { opacity: 0; transform: translateX(-80px); } }
+@keyframes slide-in { from { opacity: 0; transform: translateX(80px); } }
+
+@keyframes rewind-out {
+  to { opacity: 0; transform: translateX(240px) scale(0.9); filter: blur(12px); }
+}
+@keyframes rewind-in {
+  0%   { opacity: 0; transform: translateX(-240px) scale(0.92); filter: blur(14px); }
+  60%  { opacity: 1; filter: blur(2px); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+
+.leave-forward :is(main, .site-footer) { animation: slide-out 0.38s cubic-bezier(0.4, 0, 1, 1) forwards; }
+.enter-forward :is(main, .site-footer) { animation: slide-in 0.6s var(--ease) both; }
+
+.leave-wrap :is(main, .site-footer) {
+  transform-origin: 50% 0;
+  animation: rewind-out 0.45s cubic-bezier(0.5, 0, 1, 1) forwards;
+}
+.enter-wrap :is(main, .site-footer) {
+  transform-origin: 50% 0;
+  animation: rewind-in 0.9s var(--ease) both;
+}
 
 /* ---------- Scroll reveal (main.js adds .reveal, then .is-visible) ---------- */
 
@@ -612,7 +677,8 @@ p { margin: 0; }
   .pair { grid-template-columns: 1fr; }
   .pair .media { height: auto; aspect-ratio: 4 / 3; }
 
-  .back { justify-content: center; }
+  .next { justify-content: center; }
+  .next-link { align-items: center; text-align: center; }
 
   .site-footer-inner {
     flex-direction: column;
@@ -630,7 +696,6 @@ p { margin: 0; }
     aspect-ratio: auto;
     padding: 28px 54px; /* room for the arrow on the right, kept symmetric */
     line-height: 1.6;
-    background-color: rgba(255, 255, 255, 0.03);
   }
   .project-tile::after {
     top: 50%;
@@ -646,7 +711,7 @@ p { margin: 0; }
 
 /* Touch screens have no hover, so show the tile arrows faintly */
 @media (hover: none) {
-  .project-tile::after { opacity: 0.45; transform: none; }
+  .project-tile::after { opacity: 0.45; }
 }
 
 @media (prefers-reduced-motion: reduce) {

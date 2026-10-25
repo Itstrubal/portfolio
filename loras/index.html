@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <script>document.documentElement.classList.add("js");</script>
+  <script>document.documentElement.classList.add("js");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
 </head>
 <body>
   <header class="site-header">
@@ -110,7 +110,12 @@
         </div>
       </section>
 
-      <nav class="back"><a href="../"><img src="../assets/arrow.svg" alt="">Back to projects</a></nav>
+      <nav class="next" aria-label="Next project">
+        <a class="next-link" href="../videos/" data-direction="wrap">
+          <span class="next-label">Next project<img src="../assets/arrow.svg" alt=""></span>
+          <span class="next-title">Video Ads Variation Pipeline</span>
+        </a>
+      </nav>
     </div>
   </main>
 

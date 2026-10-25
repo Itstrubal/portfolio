@@ -74,12 +74,44 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   update();
 })();
 
+// "Next project": slide this page out sideways, then open the next one, which
+// slides in from the matching side (its head script reads the direction).
+(function () {
+  var link = document.querySelector(".next-link");
+  if (!link) return;
+  var root = document.documentElement;
+
+  // Coming back via the browser's back button can restore the slid-out page.
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) root.classList.remove("leave-forward", "leave-wrap");
+  });
+
+  // Drop the entrance classes once the page has animated in, so no leftover
+  // transform/filter stays on the page.
+  var main = document.querySelector("main");
+  if (main) main.addEventListener("animationend", function (e) {
+    if (e.target === main) root.classList.remove("enter-forward", "enter-wrap");
+  });
+
+  if (reduceMotion) return;
+
+  link.addEventListener("click", function (e) {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    var direction = link.dataset.direction || "forward";
+    try { sessionStorage.setItem("pageEnter", direction); } catch (err) {}
+    root.classList.add("leave-" + direction);
+    // Match the leave animation's length in style.css (the rewind runs a bit longer)
+    setTimeout(function () { window.location.href = link.href; }, direction === "wrap" ? 450 : 380);
+  });
+})();
+
 // Reveal content as it scrolls into view, staggering items that appear together.
 (function () {
   var targets = document.querySelectorAll([
     ".home-name", ".home-title", ".home-tagline", ".project-tile",
     ".hero-title", ".hero-client", ".hero-lead", ".hero-sub", ".hero .media", ".panel-grid",
-    ".fact", ".section-title", ".body > p", ".media", ".flow li", ".back",
+    ".fact", ".section-title", ".body > p", ".media", ".flow li", ".next",
     ".site-footer-inner > *"
   ].join(","));
 
