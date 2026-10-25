@@ -133,3 +133,54 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     observer.observe(el);
   });
 })();
+
+// Local preview only: a button to see the page at phone width. It never shows
+// on the live site, or inside the phone frame itself.
+(function () {
+  var host = window.location.hostname;
+  if (host !== "localhost" && host !== "127.0.0.1") return;
+  if (window.self !== window.top) return;
+
+  var root = document.documentElement;
+  var button = document.createElement("button");
+  button.type = "button";
+  button.className = "dev-view-toggle";
+  document.body.appendChild(button);
+
+  var overlay = null;
+
+  function open() {
+    overlay = document.createElement("div");
+    overlay.className = "dev-phone";
+    var frame = document.createElement("iframe");
+    frame.src = window.location.href;
+    frame.title = "Phone view";
+    overlay.appendChild(frame);
+    document.body.appendChild(overlay);
+    root.classList.add("dev-phone-open");
+  }
+
+  function close() {
+    // Land on whichever page was open in the phone frame
+    var href = null;
+    try { href = overlay.querySelector("iframe").contentWindow.location.href; } catch (err) {}
+    overlay.remove();
+    overlay = null;
+    root.classList.remove("dev-phone-open");
+    if (href && href !== window.location.href) window.location.href = href;
+  }
+
+  function render() {
+    var phone = sessionStorage.getItem("devView") === "phone";
+    button.textContent = phone ? "Desktop view" : "Phone view";
+    if (phone && !overlay) open();
+    if (!phone && overlay) close();
+  }
+
+  button.addEventListener("click", function () {
+    var phone = sessionStorage.getItem("devView") === "phone";
+    try { sessionStorage.setItem("devView", phone ? "desktop" : "phone"); } catch (err) {}
+    render();
+  });
+  render();
+})();

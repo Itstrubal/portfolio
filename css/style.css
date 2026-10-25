@@ -280,7 +280,7 @@ p { margin: 0; }
   letter-spacing: 0.02em;
   transition: transform 0.35s var(--ease);
 }
-.project-tile span {
+.project-tile > span {
   position: relative;
   z-index: 2;
   display: block;
@@ -304,8 +304,8 @@ p { margin: 0; }
   opacity: 1;
   transform: none;
 }
-.project-tile:hover span,
-.project-tile:focus-visible span { opacity: 0; }
+.project-tile:hover > span,
+.project-tile:focus-visible > span { opacity: 0; }
 /* Arrow, shown faintly on touch screens (see the hover: none rule below) */
 .project-tile::after {
   content: "";
@@ -687,32 +687,35 @@ body { overflow-x: clip; }
 }
 
 @media (max-width: 560px) {
-  /* Phones have no hover, so each project becomes an image card:
-     preview on top, title + arrow in a bar underneath. */
+  /* Phones have no hover, so each project becomes a row card:
+     square preview on the left, title top-right, arrow bottom-right. */
   .projects {
     grid-template-columns: minmax(0, 1fr);
-    max-width: 360px;
-    gap: 16px;
+    max-width: 400px;
+    gap: 14px;
   }
   .project-tile {
     aspect-ratio: auto;
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
     padding: 0;
     text-align: left;
-    line-height: 1.4;
+    line-height: 1.35;
   }
   .project-tile-preview {
     position: static;
+    flex: 0 0 42%;
+    width: 42%;
     height: auto;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1;
     opacity: 1;
     transform: none;
   }
-  .project-tile span { padding: 16px 60px 16px 18px; }
-  .project-tile span br { display: none; }
-  .project-tile:hover span,
-  .project-tile:focus-visible span { opacity: 1; }
+  .project-tile > span { padding: 18px 18px 48px; font-size: 14px; }
+  .project-tile > span br { display: none; }
+  .project-tile:hover > span,
+  .project-tile:focus-visible > span { opacity: 1; }
   .project-tile::after {
     right: 18px;
     bottom: 19px;
@@ -737,3 +740,41 @@ body { overflow-x: clip; }
     animation: none !important;
   }
 }
+
+/* Local preview only: phone/desktop view switch (added by main.js on localhost) */
+.dev-view-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1001;
+  padding: 10px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--accent);
+  font: 500 13px/1 "Lexend", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+.dev-view-toggle:hover { background: var(--accent); color: var(--bg); }
+.dev-phone {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.85);
+}
+.dev-phone iframe {
+  box-sizing: content-box;
+  width: 390px;
+  height: min(844px, calc(100vh - 60px));
+  border: 10px solid #111;
+  border-radius: 36px;
+  background: var(--bg);
+}
+html.dev-phone-open { overflow: hidden; }
+
+.nowrap { white-space: nowrap; }
