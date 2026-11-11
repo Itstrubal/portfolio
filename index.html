@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <script>document.documentElement.classList.add("js");</script>
+  <script>document.documentElement.classList.add("js","view-tech");</script>
 </head>
 <body id="top">
   <header class="site-header">
@@ -26,6 +26,11 @@
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+      <button class="view-toggle" type="button" role="switch" aria-checked="true" aria-label="How it’s built">
+        <span class="view-toggle-opt view-toggle-opt--simple">What it does</span>
+        <span class="view-toggle-track" aria-hidden="true"><span class="view-toggle-knob"></span></span>
+        <span class="view-toggle-opt view-toggle-opt--tech">How it’s built</span>
+      </button>
     </div>
     <span class="scroll-progress" aria-hidden="true"></span>
   </header>
@@ -33,27 +38,27 @@
   <div class="home">
     <header class="home-header">
       <h1 class="home-name">Ela Rosen</h1>
-      <h2 class="home-title">Creative AI Specialist</h2>
-      <p class="home-tagline">Scaling and automating creative Gen AI pipelines</p>
+      <h2 class="home-title">Visual AI Pipeline Architect</h2>
+      <p class="home-tagline">Balancing scale, accuracy, and creative control</p>
     </header>
 
     <main>
       <nav class="projects" id="projects" aria-label="Projects">
         <a class="project-tile" href="videos/">
           <img class="project-tile-preview" src="assets/preview-videos.webp" alt="" width="640" height="640" decoding="async">
-          <span>Video ads variations</span>
+          <span>Video ads variations<small class="project-tile-sub">Scaling Creatives with AI</small></span>
         </a>
         <a class="project-tile" href="batch/">
           <img class="project-tile-preview" src="assets/preview-batch.webp" alt="" width="640" height="640" decoding="async">
-          <span>Batch image gen</span>
+          <span>Batch image gen<small class="project-tile-sub">From Content Mill to Curator</small></span>
         </a>
         <a class="project-tile" href="reskin/">
           <img class="project-tile-preview" src="assets/preview-reskin.webp" alt="" width="614" height="614" decoding="async">
-          <span>Character <br><span class="nowrap">re-skin</span></span>
+          <span>Character <br><span class="nowrap">re-skin</span><small class="project-tile-sub">Custom Solution for a Specific Challenge</small></span>
         </a>
         <a class="project-tile" href="loras/">
           <img class="project-tile-preview" src="assets/preview-loras.webp" alt="" width="402" height="350" decoding="async">
-          <span>LoRA <br>training</span>
+          <span>LoRA <br>training<small class="project-tile-sub">Cold Start to Consistent Assets</small></span>
         </a>
       </nav>
     </main>

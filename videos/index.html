@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <script>document.documentElement.classList.add("js");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
+  <script>document.documentElement.classList.add("js","view-tech");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
 </head>
 <body>
   <header class="site-header">
@@ -26,11 +26,18 @@
         <a href="../#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+      <button class="view-toggle" type="button" role="switch" aria-checked="true" aria-label="How it’s built">
+        <span class="view-toggle-opt view-toggle-opt--simple">What it does</span>
+        <span class="view-toggle-track" aria-hidden="true"><span class="view-toggle-knob"></span></span>
+        <span class="view-toggle-opt view-toggle-opt--tech">How it’s built</span>
+      </button>
     </div>
     <span class="scroll-progress" aria-hidden="true"></span>
   </header>
 
   <main class="project">
+    <!-- "What it does" -->
+    <div class="view-simple-only">
     <div class="container">
       <section class="hero">
         <div>
@@ -166,7 +173,167 @@
           </div>
         </div>
       </section>
+    </div>
+    </div>
 
+    <!-- "How it's built" -->
+    <div class="view-tech-only">
+      <div class="container">
+        <section class="hero hero--text">
+          <div>
+            <h1 class="hero-title">Video Ads Variation Pipeline</h1>
+            <p class="hero-lead">Scaling Creatives With AI</p>
+            <p class="hero-sub">50 ads per week for winning ads or for A/B testing.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="band band--first">
+        <div class="container">
+          <section class="split-text">
+            <h2 class="section-title">The challenge</h2>
+            <div class="body">
+              <p>Generating video ad variations one by one meant tweaking a highly detailed prompt by hand, every time.</p>
+              <p>The process relies on several different models, each with its own interface, so the creatives had to keep jumping between tools to produce a single ad.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="container">
+        <section class="section">
+          <h2 class="section-title">System architecture</h2>
+          <div class="body">
+            <p>The generative AI workflow is designed and run in ComfyUI.</p>
+          </div>
+          <div class="media figure-workflow">
+            <img src="../assets/videos-workflow.webp" alt="The ComfyUI workflow: Load Ref Image(s) and Prompt feed CLIP Text Encode, then QwenVL Image Description, Video Prompt Gen, Text (Multiline) and Save Video" loading="lazy" width="1312" height="726">
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Models</h2>
+          <dl class="spec-list">
+            <dt>FLUX.1 [dev]</dt>
+            <dd>Image generation</dd>
+            <dt>FLUX.2 [klein]</dt>
+            <dd>Image editing</dd>
+            <dt>Qwen2.5-VL</dt>
+            <dd>Vision-language model that generates a description from an image</dd>
+            <dt>Seedance 2.0</dt>
+            <dd>Video generation</dd>
+            <dt>Claude and Nano Banana</dt>
+            <dd>Through ComfyUI partner nodes</dd>
+            <dt>Custom node</dt>
+            <dd>A node I created that edits and structures the video prompt</dd>
+          </dl>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Human in the loop</h2>
+          <ul class="flow flow--lines">
+            <li><p><strong>The starting point is creative.</strong> Every run begins with a key creative asset or idea from the team</p></li>
+            <li><p><strong>Designers cherry-pick</strong> the strongest assets from the raw output</p></li>
+            <li><p><strong>Every output is checked.</strong> Generated content is reviewed for prompt drift, glitches and artifacts</p></li>
+          </ul>
+
+          <div class="brief">
+            <p class="brief-intro">How much is automated depends on the brief.</p>
+            <div class="brief-ends" aria-hidden="true">
+              <p class="brief-end"><strong>Open brief</strong><span>More automation, less review</span></p>
+              <p class="brief-end brief-end--strict"><strong>Strict brief</strong><span>Less automation, more human review</span></p>
+            </div>
+            <input class="brief-range" type="range" min="0" max="100" value="50" aria-label="How strict the brief is, from open to strict">
+            <div class="brief-meters" aria-hidden="true">
+              <div class="brief-meter"><span>Automation</span><i class="brief-bar brief-bar--auto"></i></div>
+              <div class="brief-meter"><span>Human review</span><i class="brief-bar brief-bar--review"></i></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Enablement and support</h2>
+          <div class="body">
+            <p>ComfyUI workflows are too complex for most non-technical users. I turned the workflow into a simple, user-friendly web app, designed and built with Claude Design and Claude Code. After launch, I kept supporting the team and iterating on the app as they used it, adding features and onboarding new users.</p>
+          </div>
+          <div class="facts facts--compact">
+            <div class="fact">
+              <p class="fact-label">Users</p>
+              <p class="fact-value">UA leads, creative leads, motion designers</p>
+            </div>
+          </div>
+
+          <figure class="i2v-figure" role="img" aria-label="Animated mock-up of the app: a prompt and reference image go in, four candidate images come out, one is picked, and it is turned into a video that can be saved">
+            <div class="i2v" aria-hidden="true">
+              <div class="i2v-panel i2v-inputs">
+                <p class="i2v-step"><span>1</span>Inputs</p>
+                <div class="i2v-field">
+                  <p class="i2v-label">Text prompt</p>
+                  <div class="i2v-textarea"><span class="i2v-typed"></span><i class="i2v-cursor"></i><span class="i2v-placeholder">Describe the scene you want…</span></div>
+                </div>
+                <div class="i2v-field i2v-grow">
+                  <p class="i2v-label">Reference image</p>
+                  <div class="i2v-drop">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                    <span>Drop an image or <u>browse</u></span>
+                    <div class="i2v-thumb"></div>
+                  </div>
+                </div>
+                <span class="i2v-btn" data-step="images">Generate images</span>
+              </div>
+
+              <svg class="i2v-arrow" viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="i2v-arrow-line" d="M2 12h58"/><path d="M50 4l10 8-10 8"/></svg>
+
+              <div class="i2v-panel i2v-pick">
+                <p class="i2v-step"><span>2</span>Image cherry-picking</p>
+                <div class="i2v-grid">
+                  <div class="i2v-option"><i class="i2v-tick"></i><span>Image 1</span></div>
+                  <div class="i2v-option"><i class="i2v-tick"></i><span>Image 2</span></div>
+                  <div class="i2v-option"><i class="i2v-tick"></i><span>Image 3</span></div>
+                  <div class="i2v-option"><i class="i2v-tick"></i><span>Image 4</span></div>
+                </div>
+                <span class="i2v-btn" data-step="video">Generate video</span>
+              </div>
+
+              <svg class="i2v-arrow" viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="i2v-arrow-line" d="M2 12h58"/><path d="M50 4l10 8-10 8"/></svg>
+
+              <div class="i2v-panel i2v-video">
+                <p class="i2v-step"><span>3</span>Video gen from the image</p>
+                <div class="i2v-player">
+                  <div class="i2v-frame"></div>
+                  <div class="i2v-loading"><i></i></div>
+                  <span class="i2v-play">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path class="i2v-icon-play" d="M8 5l11 7-11 7z"/><path class="i2v-icon-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                  </span>
+                </div>
+                <div class="i2v-timeline">
+                  <span class="i2v-time">0:00</span>
+                  <div class="i2v-track"><i></i></div>
+                  <span>0:05</span>
+                </div>
+                <span class="i2v-btn i2v-btn--outline" data-step="save">Save video</span>
+              </div>
+            </div>
+          </figure>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Limitations</h2>
+          <div class="body">
+            <p>The generated content needs to be validated to weed out prompt drifts, glitches and artifacts</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Next steps</h2>
+          <div class="body">
+            <p>Pushing the content to the asset manager – each variant receives a unique tracking ID and is monitored for performance</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="container">
       <nav class="next" aria-label="Next project">
         <a class="next-link" href="../batch/" data-direction="forward">
           <span class="next-label">Next project<img src="../assets/arrow.svg" alt=""></span>
