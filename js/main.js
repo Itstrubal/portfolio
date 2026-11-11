@@ -108,6 +108,8 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
 // Switch between "How it's built" (.view-tech, where every visit starts) and
 // "What it does". The page turns over, swapping views while it is edge-on.
+// The choice follows the visitor from page to page for the rest of the visit
+// (each page's head script reads it back before the page draws).
 (function () {
   var toggle = document.querySelector(".view-toggle");
   if (!toggle) return;
@@ -126,6 +128,7 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
   function setView(tech) {
     root.classList.toggle("view-tech", tech);
+    try { sessionStorage.setItem("view", tech ? "tech" : "simple"); } catch (e) {}
     sync();
   }
 
