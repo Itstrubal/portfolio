@@ -9,14 +9,14 @@
   <meta property="og:title" content="Character Re-skin — Ela Rosen">
   <meta property="og:description" content="Re-skinning a character atlas with a single prompt.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#edeae4">
+  <meta name="theme-color" content="#18191b">
   <link rel="icon" href="../assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <script>document.documentElement.classList.add("js");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
+  <script>document.documentElement.classList.add("js","view-tech");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
 </head>
 <body>
   <header class="site-header">
@@ -26,11 +26,18 @@
         <a href="../#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+      <button class="view-toggle" type="button" role="switch" aria-checked="true" aria-label="How it’s built">
+        <span class="view-toggle-opt view-toggle-opt--simple">What it does</span>
+        <span class="view-toggle-track" aria-hidden="true"><span class="view-toggle-knob"></span></span>
+        <span class="view-toggle-opt view-toggle-opt--tech">How it’s built</span>
+      </button>
     </div>
     <span class="scroll-progress" aria-hidden="true"></span>
   </header>
 
   <main class="project">
+    <!-- "What it does" -->
+    <div class="view-simple-only">
     <div class="container">
       <section class="hero">
         <div>
@@ -96,6 +103,74 @@
         </div>
       </section>
 
+    </div>
+    </div>
+
+    <!-- "How it's built" -->
+    <div class="view-tech-only">
+      <div class="container">
+        <section class="hero hero--text">
+          <div>
+            <h1 class="hero-title">Character Re-skin</h1>
+            <p class="hero-lead">New animated characters, without new rigging</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="band band--first">
+        <div class="container">
+          <section class="split split--square">
+            <div class="media">
+              <img src="../assets/reskin-solution.png" alt="Re-skinned character animating in the game" loading="lazy" width="480" height="480">
+            </div>
+            <div>
+              <h2 class="section-title">The challenge</h2>
+              <div class="body">
+                <p>Creating animations for new characters, with high accuracy and a consistent brand identity. Every new character meant creating a new atlas and rigging it by hand.</p>
+                <p>The workflow reuses existing atlases and animations by re-skinning them.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="container">
+        <section class="section">
+          <h2 class="section-title">System architecture</h2>
+          <div class="body">
+            <p>The generative AI workflow is designed and run in ComfyUI.</p>
+          </div>
+          <div class="media figure-workflow">
+            <img src="../assets/reskin-workflow.webp" alt="The ComfyUI workflow: Load Image feeds Apply ControlNet, Qwen-Image-Edit-2511 goes through a LoRA, both feed the KSampler, then VAE Decode, Remove Background (RMBG) and Save Image" loading="lazy" width="1192" height="592">
+          </div>
+          <dl class="spec-list spec-list--after">
+            <dt>ControlNet</dt>
+            <dd>Conditioning architecture</dd>
+            <dt>Qwen-Image-Edit-2511</dt>
+            <dd>Image edit model with a LoRA for brand consistency</dd>
+            <dt>RMBG-2.0</dt>
+            <dd>Background removal</dd>
+          </dl>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Human in the loop</h2>
+          <ul class="flow flow--lines">
+            <li><p><strong>The first sprite sheet and animations are made by hand.</strong> Every re-skin starts from an existing, approved atlas and rig</p></li>
+            <li><p><strong>The character idea comes from people.</strong> The game owner or artist defines the new character in the prompt</p></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Limitations</h2>
+          <div class="body">
+            <p>The new character has to be close to the original in proportions and build, because the rig and part outlines are fixed. This can be solved with a small set of base characters (for example women, men and children), each re-skinned many times.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="container">
       <nav class="next" aria-label="Next project">
         <a class="next-link" href="../videos/" data-direction="wrap">
           <span class="next-label">Next project<img src="../assets/arrow.svg" alt=""></span>

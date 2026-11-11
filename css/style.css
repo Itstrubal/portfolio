@@ -1502,6 +1502,9 @@ html:not(.view-tech) .project-tile:active { transform: none; }
 /* Short stacked lines (e.g. the architecture notes) */
 .body--lines p + p { margin-top: 8px; }
 
+/* A spec list straight under a figure */
+.spec-list--after { margin-top: clamp(32px, 4vw, 48px); }
+
 /* Stand-in for a diagram that's still to come */
 .figure-placeholder {
   display: grid;
