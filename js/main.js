@@ -349,6 +349,39 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   loop();
 })();
 
+// Flow chart: leave enough room under each row for its tallest step to open
+// without covering the row (or the section) below it
+(function () {
+  var chart = document.querySelector(".flowchart-steps");
+  if (!chart) return;
+  var steps = chart.querySelectorAll(".flowchart-step");
+  function room(from, to) {
+    var max = 0;
+    for (var i = from; i < to && i < steps.length; i++) {
+      var d = steps[i].querySelector(".flowchart-detail");
+      if (d) max = Math.max(max, d.scrollHeight);
+    }
+    return max;
+  }
+  function fit() {
+    // 4px detail margin + 28px breathing room under the open step
+    chart.style.setProperty("--row-gap", Math.max(room(0, 3) + 32, 48) + "px");
+    // Below the chart, only add what the next section's top margin doesn't
+    // already cover
+    var section = chart.closest(".section");
+    var next = section && section.nextElementSibling;
+    // (the two margins overlap, so the larger one is the gap)
+    var below = Math.max(section ? parseFloat(getComputedStyle(section).marginBottom) || 0 : 0,
+      next ? parseFloat(getComputedStyle(next).marginTop) || 0 : 0);
+    chart.style.setProperty("--after-room", Math.max(room(3, 6) + 32 - below, 0) + "px");
+  }
+  fit();
+  window.addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  // The chart is hidden in "What it does"; measure again when it shows
+  new MutationObserver(fit).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+})();
+
 // Home: the title cycles through roles, deleting each one and typing the next.
 (function () {
   var title = document.querySelector(".home-title");

@@ -9,14 +9,14 @@
   <meta property="og:title" content="Batch Image Generation App — Ela Rosen">
   <meta property="og:description" content="Generating hundreds of images from a single input while maintaining consistency and brand identity.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#edeae4">
+  <meta name="theme-color" content="#18191b">
   <link rel="icon" href="../assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <script>document.documentElement.classList.add("js");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
+  <script>document.documentElement.classList.add("js","view-tech");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
 </head>
 <body>
   <header class="site-header">
@@ -26,11 +26,18 @@
         <a href="../#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+      <button class="view-toggle" type="button" role="switch" aria-checked="true" aria-label="How it’s built">
+        <span class="view-toggle-opt view-toggle-opt--simple">What it does</span>
+        <span class="view-toggle-track" aria-hidden="true"><span class="view-toggle-knob"></span></span>
+        <span class="view-toggle-opt view-toggle-opt--tech">How it’s built</span>
+      </button>
     </div>
     <span class="scroll-progress" aria-hidden="true"></span>
   </header>
 
   <main class="project">
+    <!-- "What it does" -->
+    <div class="view-simple-only">
     <div class="container">
       <section class="hero">
         <div>
@@ -131,10 +138,163 @@
         </div>
       </section>
 
+    </div>
+    </div>
+
+    <!-- "How it's built" -->
+    <div class="view-tech-only">
+      <div class="container">
+        <section class="hero hero--text">
+          <div>
+            <h1 class="hero-title">Batch Image Generation App</h1>
+            <p class="hero-lead">Hundreds of on-brand assets from a single input</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="band band--first">
+        <div class="container">
+          <section class="split-text">
+            <h2 class="section-title">The challenge</h2>
+            <div class="body">
+              <p>Generating a new collection of 150 assets every month, with every asset held up to the brand’s standard.</p>
+              <p>Generating hundreds of new prompts and assets one by one in ChatGPT was tedious and inefficient, and the art direction was limited to ChatGPT’s generic style. The process covers both prompt generation and image generation.</p>
+              <p>The team needed a simple, user-friendly one-stop shop that could turn a single input into hundreds of assets, keep every one of them consistent and offer different art direction options.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="container">
+        <section class="section">
+          <h2 class="section-title">System architecture</h2>
+          <div class="body body--lines">
+            <p>The generative AI workflow is designed and run in ComfyUI.</p>
+            <p>Model fine-tuning (LoRA training) with AI Toolkit.</p>
+            <p>The frontend app was designed and built with Claude Design and Claude Code.</p>
+          </div>
+          <figure class="flowchart figure-workflow" aria-label="App flow">
+            <ol class="flowchart-steps">
+              <li class="flowchart-step flowchart-step--user" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Simple Input</h3>
+                <ul class="flowchart-detail">
+                  <li>Single subject input</li>
+                  <li>Collection name</li>
+                  <li>Additional context (optional)</li>
+                  <li>Style selection with a LoRA</li>
+                  <li>Number of assets</li>
+                  <li>Background removal option</li>
+                </ul>
+                </div>
+              </li>
+              <li class="flowchart-step" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Automated Prompt Expansion</h3>
+                <ul class="flowchart-detail">
+                  <li>Backend LLM expands the subject into a structured batch prompt list</li>
+                  <li>Uses a template suitable for batch image generation in ComfyUI</li>
+                </ul>
+                </div>
+              </li>
+              <li class="flowchart-step" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Review Batch Prompts</h3>
+                <ul class="flowchart-detail">
+                  <li>User reviews the prompt list</li>
+                  <li>Edit individual prompts or regenerate prompts</li>
+                </ul>
+                </div>
+                <svg class="flowchart-turn" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M100 0 C100 55 0 45 0 100"/></svg>
+              </li>
+              <li class="flowchart-step flowchart-step--loop" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Batch Image Generation</h3>
+                <ul class="flowchart-detail">
+                  <li>A ComfyUI workflow for batch image generation with Flux is triggered</li>
+                </ul>
+                </div>
+              </li>
+              <li class="flowchart-step flowchart-step--user" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Interactive Asset Curation</h3>
+                <ul class="flowchart-detail">
+                  <li>Return generated assets for user review in a responsive grid</li>
+                  <li>Select specific assets for regeneration, then review the returned results</li>
+                </ul>
+                </div>
+              </li>
+              <li class="flowchart-step flowchart-step--user" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Export and Asset Handoff</h3>
+                <ul class="flowchart-detail">
+                  <li>Bulk export the asset collection</li>
+                  <li>Control the naming convention, export size and dimensions</li>
+                </ul>
+                </div>
+              </li>
+            </ol>
+          </figure>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Models</h2>
+          <dl class="spec-list">
+            <dt>FLUX.1 [dev]</dt>
+            <dd>Image generation with style LoRAs</dd>
+            <dt>GPT-4o</dt>
+            <dd>LLM that expands one subject into a full list of prompts</dd>
+            <dt>RMBG-2.0</dt>
+            <dd>Background removal</dd>
+          </dl>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Human in the loop</h2>
+          <div class="body">
+            <p>The artist sets the brief and controls the result. The workflow handles the volume.</p>
+          </div>
+          <ul class="flow flow--lines">
+            <li><p><strong>The brief comes from the artist.</strong> Every batch starts from a collection name, context and an approved style</p></li>
+            <li><p><strong>Prompts can be reviewed before generation.</strong> The artist can edit or regenerate any prompt before anything is rendered</p></li>
+            <li><p><strong>People choose the results.</strong> The artist reviews the grid, keeps what works and regenerates only the assets that miss</p></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Enablement and support</h2>
+          <div class="body">
+            <p>The app reduces the whole process to one short form, a review grid and an export button, so any 2D artist can produce a full collection on their own.</p>
+          </div>
+          <div class="media figure-app figure-app--wide" style="aspect-ratio:846/508">
+            <video data-src="../assets/batch-flow.mp4" muted loop playsinline preload="none" aria-label="Batch image generation app demo"></video>
+          </div>
+          <div class="facts facts--compact">
+            <div class="fact">
+              <p class="fact-label">Users</p>
+              <p class="fact-value">2D artists</p>
+            </div>
+            <div class="fact">
+              <p class="fact-label">Team</p>
+              <p class="fact-value">Game Owner, Art Director, Backend and DevOps Engineers</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Limitations</h2>
+          <div class="body">
+            <p>Large batches need high-VRAM cloud GPUs, an extended server timeout and storage for the generated files.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="container">
       <nav class="next" aria-label="Next project">
-        <a class="next-link" href="../reskin/" data-direction="forward">
+        <a class="next-link" href="../loras/" data-direction="forward">
           <span class="next-label">Next project<img src="../assets/arrow.svg" alt=""></span>
-          <span class="next-title">Character Re-skin</span>
+          <span class="next-title">LoRA Training From Scratch</span>
         </a>
       </nav>
     </div>
