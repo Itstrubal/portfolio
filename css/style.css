@@ -758,7 +758,7 @@ body { overflow-x: clip; }
 }
 .view-toggle:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3); }
 .site-nav { margin-left: auto; }
-.view-toggle-opt { transition: color 0.2s ease; }
+.view-toggle-opt { white-space: nowrap; transition: color 0.2s ease; }
 .view-toggle-track {
   position: relative;
   width: 38px;
@@ -1391,3 +1391,105 @@ html:not(.view-tech) .view-tech-only { display: none; }
 html.dev-phone-open { overflow: hidden; }
 
 .nowrap { white-space: nowrap; }
+
+/* ==========================================================
+   "WHAT IT DOES" VIEW: light paper palette on every page
+   (also the only look of project pages that have no switch yet)
+   ========================================================== */
+
+html:not(.view-tech) body {
+  --bg: #edeae4;
+  --text: #23251a;
+  --text-90: rgba(35, 37, 26, 0.9);
+  --text-85: rgba(35, 37, 26, 0.85);
+  --text-80: rgba(35, 37, 26, 0.8);
+  --text-70: rgba(35, 37, 26, 0.7);
+  --text-40: rgba(35, 37, 26, 0.55);
+  --accent: #7a0033;
+  --band: rgba(35, 37, 26, 0.05);
+  --frame: rgba(35, 37, 26, 0.1);
+  --tile: rgba(35, 37, 26, 0.05);
+  --panel-peach: rgba(253, 228, 189, 0.7);
+  --header-bg: rgba(237, 234, 228, 0.88);
+}
+
+/* Lines and fills that were white-on-dark */
+html:not(.view-tech) .site-header.is-scrolled { box-shadow: 0 1px 0 rgba(35, 37, 26, 0.08); }
+html:not(.view-tech) .site-footer { box-shadow: inset 0 1px 0 rgba(35, 37, 26, 0.12); }
+html:not(.view-tech) .media { background: rgba(35, 37, 26, 0.04); }
+html:not(.view-tech) .view-toggle { box-shadow: inset 0 0 0 1px rgba(35, 37, 26, 0.18); }
+html:not(.view-tech) .view-toggle:hover { box-shadow: inset 0 0 0 1px rgba(35, 37, 26, 0.35); }
+html:not(.view-tech) .view-toggle::before { background: rgba(35, 37, 26, 0.2); }
+html:not(.view-tech) .view-toggle-track { box-shadow: inset 0 0 0 1px rgba(35, 37, 26, 0.3); }
+/* The white arrow images turn dark */
+html:not(.view-tech) .fact-list li::before,
+html:not(.view-tech) .next-label img { filter: brightness(0); }
+
+/* Home: burgundy name, dark title, grey tagline */
+html:not(.view-tech) .home-name { color: #7a0033; font-weight: 600; letter-spacing: 0.02em; }
+html:not(.view-tech) .home-title { color: var(--text); letter-spacing: 0.03em; }
+html:not(.view-tech) .home-tagline { color: #6e6a60; opacity: 1; }
+
+/* Projects: full-width rows, each in its own color with a thick underline.
+   On hover a block of that color rises from the line and the title turns
+   light, slides in and gets an arrow */
+html:not(.view-tech) .projects {
+  max-width: calc(var(--max) + var(--gutter) * 2);
+  gap: 0;
+  margin-top: clamp(32px, 4vw, 56px);
+}
+html:not(.view-tech) .project-tile-preview { display: none; }
+html:not(.view-tech) .project-tile {
+  --c: #4e0a22;
+  display: block;
+  border-radius: 0;
+  background: none;
+  border-bottom: 3px solid var(--c);
+  color: var(--c);
+  font-weight: 600;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: color 0.3s ease;
+}
+html:not(.view-tech) .project-tile:nth-child(2) { --c: #5b5746; }
+html:not(.view-tech) .project-tile:nth-child(3) { --c: #262819; }
+html:not(.view-tech) .project-tile:nth-child(4) { --c: #10115a; }
+html:not(.view-tech) .project-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--c);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s var(--ease);
+}
+html:not(.view-tech) .project-tile > span {
+  padding: clamp(28px, 3vw, 40px) 0 clamp(56px, 6vw, 88px);
+  transition: transform 0.45s var(--ease);
+}
+html:not(.view-tech) .project-tile::after {
+  top: clamp(28px, 3vw, 40px);
+  bottom: auto;
+  margin-top: 0.2em;
+  opacity: 0;
+  transform: translateX(-12px);
+}
+html:not(.view-tech) .project-tile:hover,
+html:not(.view-tech) .project-tile:focus-visible { color: var(--bg); transform: none; }
+html:not(.view-tech) .project-tile:hover::before,
+html:not(.view-tech) .project-tile:focus-visible::before { transform: scaleY(1); }
+html:not(.view-tech) .project-tile:hover > span,
+html:not(.view-tech) .project-tile:focus-visible > span { transform: translateX(24px); }
+html:not(.view-tech) .project-tile:hover::after,
+html:not(.view-tech) .project-tile:focus-visible::after { opacity: 1; transform: none; }
+html:not(.view-tech) .project-tile:active { transform: none; }
+
+@media (max-width: 560px) {
+  html:not(.view-tech) .project-tile { font-size: 20px; }
+  html:not(.view-tech) .project-tile > span { padding: 22px 0 40px; }
+  html:not(.view-tech) .project-tile::after { top: 22px; right: 16px; }
+  html:not(.view-tech) .project-tile:hover > span { transform: translateX(16px); }
+}
