@@ -1537,9 +1537,9 @@ html:not(.view-tech) .project-tile:active { transform: none; }
 .figure-app--wide { max-width: 850px; }
 .figure-app + .facts--compact { margin-top: clamp(40px, 5vw, 64px); }
 
-/* ---------- Flow chart (batch "How it's built") ----------
-   Six steps in two rows of three, both read left to right; a line turns
-   from the end of the top row back to the start of the bottom row. Each step shows its name;
+/* ---------- Flow charts ("How it's built" on batch and LoRA) ----------
+   Steps in rows of three, read left to right; a curve turns from the end
+   of the top row back to the start of the next. Each step shows its name;
    hovering (or focusing) it unfolds the step downward to show its details.
    The open step floats over the page, so nothing else moves.
    Phones show the names only, in one column. */
@@ -1629,7 +1629,7 @@ html:not(.view-tech) .project-tile:active { transform: none; }
 /* Arrows point right along each row. Generation and curation are joined
    both ways (curation sends assets back to be regenerated). */
 .flowchart-step:not(:last-child)::after,
-.flowchart-step:nth-child(4)::before {
+.flowchart-step.flowchart-step--loop::before {
   content: "";
   position: absolute;
   top: calc(var(--step-h) / 2 - 4px);
@@ -1640,10 +1640,10 @@ html:not(.view-tech) .project-tile:active { transform: none; }
   -webkit-mask: url("../assets/arrow.svg") no-repeat center / contain;
   mask: url("../assets/arrow.svg") no-repeat center / contain;
 }
-.flowchart-step:nth-child(4)::after { margin-top: -6px; }
-.flowchart-step:nth-child(4)::before { margin-top: 6px; transform: rotate(180deg); }
+.flowchart-step.flowchart-step--loop::after { margin-top: -6px; }
+.flowchart-step.flowchart-step--loop::before { margin-top: 6px; transform: rotate(180deg); }
 
-/* The turn from step 3 back to step 4: a curve that leaves step 3 heading
+/* The turn from the end of the top row back to the start of the next: a curve that leaves step 3 heading
    down, sweeps left across the gap and comes into step 4 from above */
 .flowchart-turn {
   position: absolute;
@@ -1663,8 +1663,8 @@ html:not(.view-tech) .project-tile:active { transform: none; }
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
-/* ...ending in an arrowhead into step 4 */
-.flowchart-step:nth-child(3)::after {
+/* ...ending in an arrowhead into the next row's first step */
+.flowchart-step.flowchart-step--turn::after {
   top: calc(100% + var(--row-gap) - 18.5px);
   left: calc(-150% - var(--col-gap) * 2 - 12px);
   margin-left: 0.5px;
@@ -1687,13 +1687,119 @@ html:not(.view-tech) .project-tile:active { transform: none; }
   .flowchart-step:hover .flowchart-card,
   .flowchart-step:focus-visible .flowchart-card { box-shadow: inset 0 0 0 1.5px var(--accent); }
   .flowchart-step:not(:last-child)::after,
-  .flowchart-step:nth-child(4)::before {
+  .flowchart-step.flowchart-step--loop::before {
     top: calc(100% + 9px);
     left: 50%;
     right: auto;
     margin: 0 0 0 -12px;
     transform: rotate(90deg);
   }
-  .flowchart-step:nth-child(4)::after { margin-left: -26px; }
-  .flowchart-step:nth-child(4)::before { margin-left: 2px; transform: rotate(-90deg); }
+  .flowchart-step.flowchart-step--loop::after { margin-left: -26px; }
+  .flowchart-step.flowchart-step--loop::before { margin-left: 2px; transform: rotate(-90deg); }
+}
+
+/* ---------- Flow chart extras (LoRA training rounds) ----------
+   A decision step, a "Yes" end step and a "No" step that sits under the
+   decision and loops back to generation. */
+.flowchart-detail--text { list-style: none; padding-left: 0; }
+
+.flowchart-step--decision h3::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 14px;
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+  transform: rotate(45deg);
+}
+.flowchart-tag {
+  flex: none;
+  margin-right: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--accent);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.flowchart-step--end .flowchart-card { background-color: #1f211c; }
+.flowchart-step.flowchart-step--end::after { display: none; }
+
+/* "No": under the decision, one short row down */
+.flowchart-steps--has-below {
+  position: relative;
+  padding-bottom: calc(48px + var(--step-h) + var(--after-room));
+}
+.flowchart-step--below {
+  position: absolute;
+  top: calc(var(--step-h) * 2 + var(--row-gap) + 48px);
+  left: calc((100% - var(--col-gap) * 2) / 3 + var(--col-gap));
+  width: calc((100% - var(--col-gap) * 2) / 3);
+}
+
+/* Decision down to "No" */
+.flowchart-down {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: 28px;
+  margin-left: -1px;
+  overflow: visible;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.4);
+}
+.flowchart-step--decision::before,
+.flowchart-step--below::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.4);
+  -webkit-mask: url("../assets/arrow.svg") no-repeat center / contain;
+  mask: url("../assets/arrow.svg") no-repeat center / contain;
+}
+.flowchart-step--decision::before {
+  top: calc(100% + 48px - 18.5px);
+  left: 50%;
+  margin-left: -11.5px;
+  transform: rotate(90deg);
+}
+
+/* "No" loops back up into generation and curation */
+.flowchart-back {
+  position: absolute;
+  top: -22px;
+  right: 100%;
+  z-index: 0;
+  width: calc(50% + var(--col-gap));
+  height: calc(22px + var(--step-h) / 2);
+  margin-right: 0;
+  overflow: visible;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.4);
+}
+.flowchart-down path,
+.flowchart-back path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.flowchart-step--below::after {
+  top: -38.5px;
+  left: calc(-50% - var(--col-gap) - 12px);
+  margin-left: 0.5px;
+  transform: rotate(-90deg);
+}
+
+@media (max-width: 760px) {
+  .flowchart-steps--has-below { padding-bottom: 0; }
+  .flowchart-step--below { position: relative; top: auto; left: auto; width: auto; }
+  .flowchart-down,
+  .flowchart-back,
+  .flowchart-step--decision::before,
+  .flowchart-step--below::after { display: none; }
 }

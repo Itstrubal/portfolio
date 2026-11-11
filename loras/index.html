@@ -9,14 +9,14 @@
   <meta property="og:title" content="LoRA Training From Scratch — Ela Rosen">
   <meta property="og:description" content="Cold-start AI assets: training a LoRA with no existing data set.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#edeae4">
+  <meta name="theme-color" content="#18191b">
   <link rel="icon" href="../assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <script>document.documentElement.classList.add("js");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
+  <script>document.documentElement.classList.add("js","view-tech");try{var d=sessionStorage.getItem("pageEnter");if(d){sessionStorage.removeItem("pageEnter");document.documentElement.classList.add("enter-"+d);}}catch(e){}</script>
 </head>
 <body>
   <header class="site-header">
@@ -26,11 +26,18 @@
         <a href="../#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+      <button class="view-toggle" type="button" role="switch" aria-checked="true" aria-label="How it’s built">
+        <span class="view-toggle-opt view-toggle-opt--simple">What it does</span>
+        <span class="view-toggle-track" aria-hidden="true"><span class="view-toggle-knob"></span></span>
+        <span class="view-toggle-opt view-toggle-opt--tech">How it’s built</span>
+      </button>
     </div>
     <span class="scroll-progress" aria-hidden="true"></span>
   </header>
 
   <main class="project">
+    <!-- "What it does" -->
+    <div class="view-simple-only">
     <div class="container">
       <section class="hero">
         <div>
@@ -111,6 +118,120 @@
         </div>
       </section>
 
+    </div>
+    </div>
+
+    <!-- "How it's built" -->
+    <div class="view-tech-only">
+      <div class="container">
+        <section class="hero hero--text">
+          <div>
+            <h1 class="hero-title">LoRA Training From Scratch</h1>
+            <p class="hero-lead">From one character design to a production-ready style</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="band band--first">
+        <div class="container">
+          <section class="split-text">
+            <h2 class="section-title">The challenge</h2>
+            <div class="body">
+              <p>Generating consistent assets in a new, distinctive style.</p>
+              <p>Consistency and brand identity come from a LoRA, but training a LoRA requires a dataset, and as a new game there weren’t any existing assets.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="container">
+        <section class="section">
+          <h2 class="section-title">System architecture</h2>
+          <div class="body">
+            <p>LoRA training with AI Toolkit, on FLUX.1 [dev] as the base model.</p>
+            <p>There was no source data to start from, only a single character design image and found references. The dataset was built and the LoRA trained in rounds: generate, curate, retrain, until the style held on new subjects.</p>
+          </div>
+          <figure class="flowchart figure-workflow" aria-label="Training rounds">
+            <ol class="flowchart-steps flowchart-steps--has-below">
+              <li class="flowchart-step" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Seed set</h3>
+                <ul class="flowchart-detail flowchart-detail--text">
+                  <li>Character design and found style references</li>
+                </ul>
+                </div>
+              </li>
+              <li class="flowchart-step" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Augmentation</h3>
+                <ul class="flowchart-detail flowchart-detail--text">
+                  <li>AI image manipulations create more on-style images from the seed set</li>
+                </ul>
+                </div>
+              </li>
+              <li class="flowchart-step flowchart-step--turn" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Training</h3>
+                <ul class="flowchart-detail flowchart-detail--text">
+                  <li>Train the first LoRA on the small dataset</li>
+                </ul>
+                </div>
+                <svg class="flowchart-turn" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M100 0 C100 55 0 45 0 100"/></svg>
+              </li>
+              <li class="flowchart-step" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Generation and curation</h3>
+                <ul class="flowchart-detail flowchart-detail--text">
+                  <li>Best outputs approved by the art director join the next dataset</li>
+                </ul>
+                </div>
+              </li>
+              <li class="flowchart-step flowchart-step--decision" tabindex="0">
+                <div class="flowchart-card">
+                <h3>Style approved?</h3>
+                </div>
+                <svg class="flowchart-down" viewBox="0 0 2 100" preserveAspectRatio="none" aria-hidden="true"><path d="M1 0 L1 100"/></svg>
+              </li>
+              <li class="flowchart-step flowchart-step--end" tabindex="0">
+                <div class="flowchart-card">
+                <h3><span class="flowchart-tag">Yes</span>Approved style</h3>
+                </div>
+              </li>
+              <li class="flowchart-step flowchart-step--below" tabindex="0">
+                <div class="flowchart-card">
+                <h3><span class="flowchart-tag">No</span>Retraining</h3>
+                <ul class="flowchart-detail flowchart-detail--text">
+                  <li>Retrain on the expanded dataset; repeat generation and curation</li>
+                </ul>
+                </div>
+                <svg class="flowchart-back" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M100 100 C25 100 0 75 0 0"/></svg>
+              </li>
+            </ol>
+          </figure>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Human in the loop</h2>
+          <div class="body">
+            <p>The art director set the target and approved every round. The model only learns from images people have chosen.</p>
+          </div>
+          <ul class="flow flow--lines">
+            <li><p><strong>The style starts with people.</strong> The character design and references come from the art team</p></li>
+            <li><p><strong>Every round is curated.</strong> Only approved outputs go back into the dataset</p></li>
+            <li><p><strong>The artist moves to art direction.</strong> Once approved, the LoRA takes over the repetitive production, so the artist can focus on creative work instead of being a content mill</p></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Limitations</h2>
+          <div class="body">
+            <p>Relying on a limited number of initial assets required a few iterations of LoRA training, image generation, cherry-picking and training again with the new dataset. Training on AI-generated content requires strict filtering to prevent quality degradation.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="container">
       <nav class="next" aria-label="Next project">
         <a class="next-link" href="../reskin/" data-direction="forward">
           <span class="next-label">Next project<img src="../assets/arrow.svg" alt=""></span>

@@ -354,26 +354,30 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 (function () {
   var chart = document.querySelector(".flowchart-steps");
   if (!chart) return;
-  var steps = chart.querySelectorAll(".flowchart-step");
-  function room(from, to) {
+  var steps = [].slice.call(chart.querySelectorAll(".flowchart-step"));
+  // Room an opened step needs below its row: its details, the 4px detail
+  // margin and 28px of breathing room
+  function room(list) {
     var max = 0;
-    for (var i = from; i < to && i < steps.length; i++) {
-      var d = steps[i].querySelector(".flowchart-detail");
-      if (d) max = Math.max(max, d.scrollHeight);
-    }
+    list.forEach(function (s) {
+      var d = s.querySelector(".flowchart-detail");
+      if (d && d.scrollHeight) max = Math.max(max, d.scrollHeight + 32);
+    });
     return max;
   }
   function fit() {
-    // 4px detail margin + 28px breathing room under the open step
-    chart.style.setProperty("--row-gap", Math.max(room(0, 3) + 32, 48) + "px");
+    var tops = steps.map(function (s) { return s.offsetTop; });
+    var first = Math.min.apply(null, tops), last = Math.max.apply(null, tops);
+    var top = steps.filter(function (s) { return s.offsetTop === first; });
+    var bottom = steps.filter(function (s) { return s.offsetTop === last; });
+    chart.style.setProperty("--row-gap", Math.max(room(top), 48) + "px");
     // Below the chart, only add what the next section's top margin doesn't
-    // already cover
+    // already cover (the two margins overlap, so the larger one is the gap)
     var section = chart.closest(".section");
     var next = section && section.nextElementSibling;
-    // (the two margins overlap, so the larger one is the gap)
     var below = Math.max(section ? parseFloat(getComputedStyle(section).marginBottom) || 0 : 0,
       next ? parseFloat(getComputedStyle(next).marginTop) || 0 : 0);
-    chart.style.setProperty("--after-room", Math.max(room(3, 6) + 32 - below, 0) + "px");
+    chart.style.setProperty("--after-room", Math.max(room(bottom) - below, 0) + "px");
   }
   fit();
   window.addEventListener("resize", fit);
