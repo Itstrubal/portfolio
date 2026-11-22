@@ -2059,3 +2059,8 @@ html:not(.view-tech) .flowchart-step--return::after { background: rgba(35, 37, 2
   color: var(--accent);
 }
 .subsection-title + .body { margin-top: 16px; }
+
+/* Media shown as-is: no rounded corners, outline or backdrop */
+.media--bare,
+html:not(.view-tech) .media--bare { border-radius: 0; background: none; }
+.media--bare::after { display: none; }
