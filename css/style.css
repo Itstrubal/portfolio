@@ -2056,7 +2056,7 @@ html:not(.view-tech) .flowchart-step--return::after { background: rgba(35, 37, 2
   line-height: 1.3;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text);
 }
 .subsection-title + .body { margin-top: 16px; }
 
