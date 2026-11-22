@@ -1935,3 +1935,127 @@ html:not(.view-tech) .view-toggle.is-hinting .view-toggle-knob { animation-name:
 @keyframes toggle-knob-hint-cream {
   50% { box-shadow: 0 0 0 5px rgba(122, 0, 51, 0.2); }
 }
+
+/* ---------- Flow chart in the cream view ("What it does") ---------- */
+.flowchart-num {
+  flex: none;
+  margin-right: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.8;
+}
+html:not(.view-tech) .flowchart-step:not(:last-child)::after,
+html:not(.view-tech) .flowchart-step--loop::before,
+html:not(.view-tech) .flowchart-step--decision::before,
+html:not(.view-tech) .flowchart-step--below::after { background: rgba(35, 37, 26, 0.45); }
+html:not(.view-tech) .flowchart-turn,
+html:not(.view-tech) .flowchart-down,
+html:not(.view-tech) .flowchart-back { color: rgba(35, 37, 26, 0.45); }
+html:not(.view-tech) .flowchart-step:hover .flowchart-card,
+html:not(.view-tech) .flowchart-step:focus-visible .flowchart-card {
+  background-color: #f4f1ec;
+  box-shadow: inset 0 0 0 1.5px var(--accent), 0 0 0 4px rgba(122, 0, 51, 0.08), 0 14px 30px rgba(35, 37, 26, 0.12);
+}
+
+/* ---------- Interaction flow with arrows between the steps ---------- */
+.flow--arrows li { position: relative; }
+.flow--arrows li + li { margin-top: 72px; }
+.flow--arrows li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 24px);
+  left: 0;
+  width: 24px;
+  height: 9px;
+  background: currentColor;
+  opacity: 0.45;
+  -webkit-mask: url("../assets/arrow.svg") no-repeat center / contain;
+  mask: url("../assets/arrow.svg") no-repeat center / contain;
+  transform: translateX(-7px) rotate(90deg);
+}
+@media (max-width: 900px) {
+  .flow--arrows li + li { margin-top: 56px; }
+  .flow--arrows li:not(:last-child)::after { top: calc(100% + 18px); }
+}
+
+/* ---------- Cream home: the subtitle slides in on hover too ---------- */
+html:not(.view-tech) .project-tile { --fs: clamp(22px, 2.2vw, 30px); font-size: var(--fs); }
+html:not(.view-tech) .project-tile-sub {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: calc(clamp(28px, 3vw, 40px) + var(--fs) * 1.2 + 6px);
+  font-weight: 400;
+  font-size: clamp(14px, 1.3vw, 16px);
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease 0.08s, transform 0.4s var(--ease) 0.08s;
+}
+html:not(.view-tech) .project-tile:hover .project-tile-sub,
+html:not(.view-tech) .project-tile:focus-visible .project-tile-sub { opacity: 0.85; transform: none; }
+@media (hover: none) {
+  html:not(.view-tech) .project-tile-sub { opacity: 0.8; transform: none; }
+}
+@media (max-width: 560px) {
+  html:not(.view-tech) .project-tile { --fs: 20px; }
+  html:not(.view-tech) .project-tile-sub { top: calc(22px + var(--fs) * 1.2 + 4px); font-size: 13px; white-space: normal; right: 16px; }
+}
+.section--leading .flowchart + .body { margin-top: clamp(32px, 4vw, 48px); }
+
+/* "Keep iterating together" loops back to "Test": a curve under the
+   bottom row, from the last step back up into the first one */
+.flowchart-steps--return { padding-bottom: calc(56px + var(--after-room)); }
+.flowchart-return {
+  position: absolute;
+  top: 100%;
+  right: 50%;
+  z-index: 0;
+  width: calc(200% + var(--col-gap) * 2);
+  height: 48px;
+  margin-right: -0.5px;
+  overflow: visible;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.4);
+}
+.flowchart-return path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.flowchart-step--return::after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 9.5px);
+  left: calc(-150% - var(--col-gap) * 2 - 12px);
+  width: 24px;
+  height: 9px;
+  margin-left: 0.5px;
+  background: rgba(255, 255, 255, 0.4);
+  -webkit-mask: url("../assets/arrow.svg") no-repeat center / contain;
+  mask: url("../assets/arrow.svg") no-repeat center / contain;
+  transform: rotate(-90deg);
+}
+html:not(.view-tech) .flowchart-return { color: rgba(35, 37, 26, 0.45); }
+html:not(.view-tech) .flowchart-step--return::after { background: rgba(35, 37, 26, 0.45); }
+@media (max-width: 760px) {
+  .flowchart-steps--return { padding-bottom: 0; }
+  .flowchart-return,
+  .flowchart-step--return::after { display: none; }
+}
+
+/* A smaller heading inside a section (e.g. Responsible AI under Models) */
+.subsection-title {
+  margin: clamp(40px, 5vw, 56px) 0 0;
+  font-weight: 500;
+  font-size: clamp(19px, 1.9vw, 22px);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.subsection-title + .body { margin-top: 16px; }

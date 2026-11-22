@@ -404,9 +404,8 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
 // Flow chart: leave enough room under each row for its tallest step to open
 // without covering the row (or the section) below it
-(function () {
-  var chart = document.querySelector(".flowchart-steps");
-  if (!chart) return;
+// (a page can have one chart in each view)
+document.querySelectorAll(".flowchart-steps").forEach(function (chart) {
   var steps = [].slice.call(chart.querySelectorAll(".flowchart-step"));
   // Room an opened step needs below its row: its details, the 4px detail
   // margin and 28px of breathing room
@@ -437,7 +436,7 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   // The chart is hidden in "What it does"; measure again when it shows
   new MutationObserver(fit).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-})();
+});
 
 // Home: the title cycles through roles, deleting each one and typing the next.
 (function () {
@@ -504,6 +503,7 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ".fact", ".section-title", ".body > p", ".media", ".flow li", ".next",
     ".spec-list", ".brief", ".i2v-figure",
     ".about-title", ".about-body > p", ".about-card",
+    ".subsection-title",
     ".site-footer-inner > *"
   ].join(","));
 
