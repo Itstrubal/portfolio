@@ -1803,3 +1803,114 @@ html:not(.view-tech) .project-tile:active { transform: none; }
   .flowchart-step--decision::before,
   .flowchart-step--below::after { display: none; }
 }
+
+/* ==========================================================
+   HOME: About (under the projects)
+   Charcoal: a labelled rule, body text and three dark cards.
+   Cream: the same, with the cards set off by the row colors.
+   ========================================================== */
+.about {
+  width: 100%;
+  max-width: calc(640px + var(--gutter) * 2);
+  margin: clamp(72px, 9vw, 120px) auto 0;
+  padding: 0 var(--gutter);
+}
+html:not(.view-tech) .about { max-width: calc(var(--max) + var(--gutter) * 2); }
+
+.about-title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.about-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.about-body {
+  margin-top: clamp(28px, 3vw, 40px);
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.6;
+  color: var(--text-80);
+}
+.about-body p + p { margin-top: 1.2em; }
+
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.about-card {
+  padding: 18px 16px 20px;
+  border-radius: 12px;
+  background: var(--tile);
+}
+.about-card strong {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.about-card span {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-70);
+}
+
+/* Cream */
+html:not(.view-tech) .about-title { color: #7a0033; }
+html:not(.view-tech) .about-title::after { height: 3px; background: #7a0033; }
+html:not(.view-tech) .about-body { color: var(--text-85); }
+html:not(.view-tech) .about-card {
+  --c: #4e0a22;
+  border-radius: 0;
+  background: none;
+  border-top: 3px solid var(--c);
+  padding: 16px 0 0;
+}
+html:not(.view-tech) .about-card:nth-child(2) { --c: #5b5746; }
+html:not(.view-tech) .about-card:nth-child(3) { --c: #10115a; }
+html:not(.view-tech) .about-card strong { color: var(--c); font-size: 16px; letter-spacing: 0.02em; }
+
+@media (max-width: 560px) {
+  .about-cards { grid-template-columns: minmax(0, 1fr); }
+  html:not(.view-tech) .about-cards { gap: 24px; }
+}
+
+/* ---------- Switch hint: a ring that pulses out from the switch now and
+   then, until both views have been tried (main.js adds .is-hinting) ---------- */
+.view-toggle::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1.5px var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+.view-toggle.is-hinting::after { animation: toggle-hint 1.4s var(--ease) 2; }
+.view-toggle.is-hinting .view-toggle-knob { animation: toggle-knob-hint 1.4s ease 2; }
+@keyframes toggle-hint {
+  0%   { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.18, 1.5); }
+}
+@keyframes toggle-knob-hint {
+  50% { box-shadow: 0 0 0 5px rgba(201, 232, 130, 0.35), 0 0 14px rgba(201, 232, 130, 0.7); }
+}
+html:not(.view-tech) .view-toggle.is-hinting .view-toggle-knob { animation-name: toggle-knob-hint-cream; }
+@keyframes toggle-knob-hint-cream {
+  50% { box-shadow: 0 0 0 5px rgba(122, 0, 51, 0.2); }
+}

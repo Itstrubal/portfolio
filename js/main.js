@@ -152,7 +152,57 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (isProject) window.scrollTo({ top: 0, behavior: "instant" });
   }
 
+  // Now and then, a ring pulses out from the switch so people notice
+  // there are two ways to read the site. It stops for the visit once they
+  // have used it to open both views.
+  var used = {};
+  try { used = JSON.parse(sessionStorage.getItem("viewHintUsed")) || {}; } catch (e) {}
+  function hintDone() { return used.tech && used.simple; }
+  var hintTimer, hintOffTimer;
+  function playHint() {
+    if (reduceMotion || hintDone() || document.hidden) return;
+    clearTimeout(hintOffTimer);
+    toggle.classList.remove("is-hinting");
+    void toggle.offsetWidth; // restart the animation
+    toggle.classList.add("is-hinting");
+    // Two pulses of 1.4s, then clear it so the next hint can play
+    hintOffTimer = setTimeout(function () { toggle.classList.remove("is-hinting"); }, 2900);
+  }
+  if (!reduceMotion && !hintDone()) {
+    hintTimer = setTimeout(function hint() {
+      if (hintDone()) return;
+      playHint();
+      hintTimer = setTimeout(hint, 12000);
+    }, 4000);
+
+    // Project pages: also when the reader reaches the end of the page, where
+    // the other version is the natural next read
+    var end = isProject && document.querySelector(".next");
+    if (end && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        playHint();
+        // Restart the regular rhythm from here so two don't land together
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(function hint() {
+          if (hintDone()) return;
+          playHint();
+          hintTimer = setTimeout(hint, 12000);
+        }, 12000);
+      }, { threshold: 0.6 }).observe(end);
+    }
+  }
+
   toggle.addEventListener("click", function () {
+    if (!busy && !hintDone()) {
+      // The view this click opens
+      used[root.classList.contains("view-tech") ? "simple" : "tech"] = true;
+      try { sessionStorage.setItem("viewHintUsed", JSON.stringify(used)); } catch (e) {}
+      if (hintDone()) {
+        clearTimeout(hintTimer);
+        toggle.classList.remove("is-hinting");
+      }
+    }
     if (busy) return;
     var tech = !root.classList.contains("view-tech");
     if (reduceMotion || !page) { showView(tech); return; }
@@ -453,6 +503,7 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ".hero-title", ".hero-client", ".hero-lead", ".hero-sub", ".hero .media", ".panel-grid",
     ".fact", ".section-title", ".body > p", ".media", ".flow li", ".next",
     ".spec-list", ".brief", ".i2v-figure",
+    ".about-title", ".about-body > p", ".about-card",
     ".site-footer-inner > *"
   ].join(","));
 
