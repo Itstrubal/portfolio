@@ -443,11 +443,11 @@ document.querySelectorAll(".flowchart-steps").forEach(function (chart) {
   var title = document.querySelector(".home-title");
   if (!title) return;
   var roles = [
-    "Visual AI Pipeline Architect",
-    "Gen AI Builder",
+    "Creative Technologist",
     "Gen AI Specialist",
-    "Forward Deployment Creative",
-    "Creative Technologist"
+    "Gen AI Builder",
+    "Visual AI Pipeline Architect",
+    "Forward Deployment Creative"
   ];
   var i = 0;
 
