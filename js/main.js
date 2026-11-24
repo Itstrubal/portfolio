@@ -167,6 +167,12 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   try { used = JSON.parse(sessionStorage.getItem("viewHintUsed")) || {}; } catch (e) {}
   function hintDone() { return used.tech && used.simple; }
   var hintTimer, hintOffTimer;
+  // On phones the switch has no labels, so the hint also says what a tap does
+  var tip = document.createElement("span");
+  tip.className = "view-toggle-tip";
+  tip.setAttribute("aria-hidden", "true");
+  tip.innerHTML = '<span class="view-toggle-tip--tech">Click to see what it does</span><span class="view-toggle-tip--simple">Click to see how it’s made</span>';
+  toggle.appendChild(tip);
   function playHint() {
     if (reduceMotion || hintDone() || document.hidden) return;
     clearTimeout(hintOffTimer);
@@ -206,11 +212,10 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
       // The view this click opens
       used[root.classList.contains("view-tech") ? "simple" : "tech"] = true;
       try { sessionStorage.setItem("viewHintUsed", JSON.stringify(used)); } catch (e) {}
-      if (hintDone()) {
-        clearTimeout(hintTimer);
-        toggle.classList.remove("is-hinting");
-      }
+      if (hintDone()) clearTimeout(hintTimer);
     }
+    clearTimeout(hintOffTimer);
+    toggle.classList.remove("is-hinting");
     if (busy) return;
     var tech = !root.classList.contains("view-tech");
     if (reduceMotion || !page) { showView(tech); return; }
