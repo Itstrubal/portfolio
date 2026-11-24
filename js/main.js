@@ -132,13 +132,21 @@ var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     sync();
   }
 
-  // Run fn once el's own animation ends (not one of its children's)
+  // Run fn once el's own animation ends (not one of its children's). If the
+  // browser never reports the end (a backgrounded tab can freeze animations),
+  // a timer finishes the step anyway so the switch can't get stuck.
   function afterAnimation(el, fn) {
-    el.addEventListener("animationend", function done(e) {
-      if (e.target !== el) return;
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
       el.removeEventListener("animationend", done);
+      clearTimeout(timer);
       fn();
-    });
+    }
+    function done(e) { if (e.target === el) finish(); }
+    el.addEventListener("animationend", done);
+    var timer = setTimeout(finish, 1000);
   }
 
   // Turn around the middle of what's on screen, not the middle of the page
