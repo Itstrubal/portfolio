@@ -29,7 +29,7 @@
     <div class="container site-header-inner">
       <a class="site-logo" href="../">Ela Rosen</a>
       <nav class="site-nav" aria-label="Main">
-        <a href="../#projects">Projects</a>
+        <a href="../">Projects</a>
         <a href="../#contact">Contact</a>
       </nav>
       <button class="view-toggle" type="button" role="switch" aria-checked="true" aria-label="How it’s built">
@@ -212,7 +212,7 @@
       <div class="container">
         <section class="hero hero--text">
           <div>
-            <h1 class="hero-title">Video Ads Variation Pipeline</h1>
+            <h1 class="hero-title">Video Variation Pipeline</h1>
             <p class="hero-lead">Scaling Creatives With AI</p>
             <p class="hero-sub">50 ads per week for winning ads or for A/B testing.</p>
           </div>
@@ -296,6 +296,12 @@
             <li><p><strong>Designers cherry-pick</strong> the strongest assets from the raw output</p></li>
             <li><p><strong>Every output is checked.</strong> Generated content is reviewed for prompt drift, glitches and artifacts</p></li>
           </ul>
+
+          <div class="video-row" aria-label="Generated video variations">
+            <div class="media"><video data-src="../assets/videos-challenge.mp4" muted loop playsinline preload="none" aria-label="Generated video ad variation"></video></div>
+            <div class="media"><video data-src="../assets/videos-bottlenecks.mp4" muted loop playsinline preload="none" aria-label="Generated video ad variation"></video></div>
+            <div class="media"><video data-src="../assets/videos-next-steps.mp4" muted loop playsinline preload="none" aria-label="Generated video ad variation"></video></div>
+          </div>
 
           <div class="brief">
             <p class="brief-intro">How much is automated depends on the brief.</p>
@@ -384,10 +390,15 @@
           </div>
         </section>
 
-        <section class="section">
-          <h2 class="section-title">Next steps</h2>
-          <div class="body">
-            <p>Pushing the content to the asset manager – each variant receives a unique tracking ID and is monitored for performance</p>
+        <section class="section split split--top">
+          <div class="media tall">
+            <video data-src="../assets/videos-hitl.mp4" muted loop playsinline preload="none" aria-label="Curated video output"></video>
+          </div>
+          <div>
+            <h2 class="section-title">Next steps</h2>
+            <div class="body">
+              <p>Pushing the content to the asset manager – each variant receives a unique tracking ID and is monitored for performance</p>
+            </div>
           </div>
         </section>
       </div>
@@ -397,7 +408,7 @@
       <nav class="next" aria-label="Next project">
         <a class="next-link" href="../batch/" data-direction="forward">
           <span class="next-label">Next project<img src="../assets/arrow.svg" alt=""></span>
-          <span class="next-title">Batch Image Generation App</span>
+          <span class="next-title"><span class="view-simple-only">Batch Image Generation App</span><span class="view-tech-only">Batch Asset Production App</span></span>
         </a>
       </nav>
     </div>

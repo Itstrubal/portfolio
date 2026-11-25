@@ -29,7 +29,7 @@
     <div class="container site-header-inner">
       <a class="site-logo" href="../">Ela Rosen</a>
       <nav class="site-nav" aria-label="Main">
-        <a href="../#projects">Projects</a>
+        <a href="../">Projects</a>
         <a href="../#contact">Contact</a>
       </nav>
       <button class="view-toggle" type="button" role="switch" aria-checked="true" aria-label="How it’s built">
@@ -137,7 +137,7 @@
         <section class="hero hero--text">
           <div>
             <h1 class="hero-title">LoRA Training From Scratch</h1>
-            <p class="hero-lead">From one character design to a production-ready style</p>
+            <p class="hero-lead">A brand style fine-tuned model from minimal data</p>
           </div>
         </section>
       </div>
@@ -237,6 +237,25 @@
         </section>
 
         <section class="section">
+          <figure class="limit-figure" aria-label="The seed set, an artist's illustration, leads to the approved assets made with the LoRA">
+            <div class="media limit-figure-seed">
+              <img src="../assets/loras-hitl.png" alt="The artist's character illustration used as the seed set" loading="lazy" width="373" height="526">
+            </div>
+            <span class="limit-figure-arrow" aria-hidden="true"></span>
+            <div class="limit-figure-pair">
+              <div class="media limit-figure-a">
+                <img src="../assets/loras-challenge-1.png" alt="Approved asset: characters in a cinema" loading="lazy" width="544" height="350">
+              </div>
+              <div class="media limit-figure-b">
+                <img src="../assets/loras-challenge-2.png" alt="Approved asset: a character on stage" loading="lazy" width="402" height="350">
+              </div>
+            </div>
+            <p class="limit-figure-caption limit-figure-caption--seed">Seed set – Artist’s Illustration</p>
+            <p class="limit-figure-caption limit-figure-caption--approved">Approved Assets</p>
+          </figure>
+        </section>
+
+        <section class="section">
           <h2 class="section-title">Limitations</h2>
           <div class="body">
             <p>Relying on a limited number of initial assets required a few iterations of LoRA training, image generation, cherry-picking and training again with the new dataset. Training on AI-generated content requires strict filtering to prevent quality degradation.</p>
@@ -249,7 +268,7 @@
       <nav class="next" aria-label="Next project">
         <a class="next-link" href="../reskin/" data-direction="forward">
           <span class="next-label">Next project<img src="../assets/arrow.svg" alt=""></span>
-          <span class="next-title">Character Re-skin</span>
+          <span class="next-title"><span class="view-simple-only">Character Re-skin</span><span class="view-tech-only">Template Re-skin</span></span>
         </a>
       </nav>
     </div>

@@ -2100,6 +2100,23 @@ html:not(.view-tech) .flowchart-step--return::after { background: rgba(35, 37, 2
 }
 .subsection-title + .body { margin-top: 16px; }
 
+/* Text lined up with the top of the video beside it */
+.split--top { align-items: start; }
+/* pull the line spacing up so the capitals start level with the media */
+.split--top .section-title { margin-top: -0.35em; }
+
+/* A row of example videos, side by side */
+.video-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+  margin-top: clamp(40px, 5vw, 56px);
+}
+.video-row .media { aspect-ratio: 608 / 1080; }
+@media (max-width: 560px) {
+  .video-row { gap: 8px; }
+}
+
 /* Media shown as-is: no rounded corners, outline or backdrop */
 .media--bare,
 html:not(.view-tech) .media--bare { border-radius: 0; background: none; }
@@ -2138,4 +2155,56 @@ html:not(.view-tech) .before-after > div { border-radius: 0; background: rgba(23
 /* In a title | text layout, keep it under the text */
 @media (min-width: 901px) {
   .split-text > .before-after { grid-column: 2; margin-top: 24px; }
+}
+
+/* LoRA seed set -> arrow -> approved assets, all one height
+   (column widths follow each part's width/height ratio, so heights match) */
+.limit-figure {
+  display: grid;
+  grid-template-columns: 688fr 36px 2703fr; /* 688 not 709: leaves room for the gap inside the pair */
+  grid-template-areas:
+    "seed arrow pair"
+    "seed-cap . pair-cap";
+  column-gap: clamp(12px, 2vw, 24px);
+  align-items: center;
+  margin: 0;
+}
+.limit-figure .media { aspect-ratio: auto; min-width: 0; }
+.limit-figure .media img { display: block; width: 100%; height: auto; }
+.limit-figure-seed { grid-area: seed; }
+.limit-figure-arrow { grid-area: arrow; }
+.limit-figure-pair { grid-area: pair; display: flex; gap: clamp(12px, 2vw, 24px); min-width: 0; }
+.limit-figure-a { flex: 1554 1 0; }
+.limit-figure-b { flex: 1149 1 0; }
+.limit-figure-caption {
+  align-self: start;
+  margin-top: 14px;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.4;
+  color: var(--text-85);
+}
+.limit-figure-caption--seed { grid-area: seed-cap; }
+.limit-figure-caption--approved { grid-area: pair-cap; }
+.limit-figure-arrow { height: 15px; position: relative; }
+.limit-figure-arrow::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36px;
+  height: 15px;
+  margin: -7.5px 0 0 -18px;
+  background: var(--accent);
+  -webkit-mask: url("../assets/arrow.svg") no-repeat center / contain;
+  mask: url("../assets/arrow.svg") no-repeat center / contain;
+}
+@media (max-width: 760px) {
+  .limit-figure {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "seed" "seed-cap" "arrow" "pair" "pair-cap";
+  }
+  .limit-figure-seed { width: 60%; margin-inline: auto; }
+  .limit-figure-arrow { height: 36px; margin-top: 12px; }
+  .limit-figure-arrow::before { transform: rotate(90deg); }
+  .limit-figure-caption { text-align: center; }
 }
